@@ -1,0 +1,24 @@
+using Microsoft.EntityFrameworkCore;
+using PI.Domain.Common.PagedLists;
+using PI.Domain.Models;
+using PI.Persitence.Repository.Common;
+
+namespace PI.Persitence.Repository
+{
+    public class ProductImageRepository : GenericRepository<ProductImage>
+    {
+        public ProductImageRepository(DbContext context) : base(context)
+        {
+        }
+
+        public override Task<IPagedList<ProductImage>> SearchAsync(string keySearch, PagingQuery pagingQuery, string orderBy)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override Task<IPagedList<TResult>> SearchAsync<TResult>(string keySearch, PagingQuery pagingQuery, string orderBy)
+        {
+            throw new NotImplementedException();
+        }
+    }
+}

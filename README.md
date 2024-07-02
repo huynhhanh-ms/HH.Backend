@@ -1,0 +1,1 @@
+![structure](docs/be-structure-Page-2.drawio.svg)
