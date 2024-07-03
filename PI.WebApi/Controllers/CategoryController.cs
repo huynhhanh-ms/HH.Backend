@@ -5,6 +5,7 @@ namespace PI.WebApi.Controllers
 {
     [ApiController]
     [Route("api/v1/category")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CategoryController : ControllerBase
     {
         private readonly ICategoryService _categoryService;

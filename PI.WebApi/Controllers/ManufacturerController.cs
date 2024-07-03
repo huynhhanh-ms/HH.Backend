@@ -6,6 +6,7 @@ namespace PI.WebApi.Controllers
 {
     [ApiController]
     [Route("api/v1/manufacturer")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ManufacturerController : ControllerBase
     {
         private readonly IManufacturerService _manufacturerService;

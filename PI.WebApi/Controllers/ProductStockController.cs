@@ -7,6 +7,8 @@ namespace PI.WebApi.Controllers
 {
     [Route("api/v1/product-stock")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
+
     public class ProductStockController : ControllerBase
     {
         private readonly IProductStockService _productStockService;

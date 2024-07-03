@@ -6,6 +6,7 @@ namespace PI.WebApi.Controllers
 {
     [ApiController]
     [Route("api/v1/import-shipment")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ImportShipmentController : ControllerBase
     {
         private readonly IShipmentService _shipmentService;

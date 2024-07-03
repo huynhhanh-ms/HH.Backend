@@ -6,6 +6,7 @@ namespace PI.WebApi.Controllers
 {
     [ApiController]
     [Route("api/v1/distributor")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class DistributorController : ControllerBase
     {
         private readonly IDistributorService _distributorService;

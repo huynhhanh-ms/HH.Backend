@@ -5,6 +5,7 @@ namespace PI.WebApi.Controllers
 {
     [ApiController]
     [Route("api/v1/medicine")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class MedicineController : ControllerBase
     {
         

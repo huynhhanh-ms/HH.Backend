@@ -6,6 +6,8 @@ namespace PI.WebApi.Controllers
 {
     [Route("api/v1/export-request")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
+
     public class ExportRequestController : ControllerBase
     {
         private readonly IExportRequestService _exportReqService;

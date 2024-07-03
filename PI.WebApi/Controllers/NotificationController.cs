@@ -7,6 +7,7 @@ namespace PI.WebApi.Controllers
 {
     [ApiController]
     [Route("api/v1/notification")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class NotificationController : ControllerBase
     {
         private readonly INotificationService  _notificationService;

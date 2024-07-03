@@ -7,6 +7,8 @@ namespace PI.WebApi.Controllers
 {
     [Route("api/stock-balance")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
+
     public class StockBalanceController : ControllerBase
     {
         private readonly IStockBalanceService _stockBalanceService;

@@ -7,6 +7,7 @@ namespace PI.WebApi.Controllers
 {
     [ApiController]
     [Route("api/v1/attributes")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class AttributeController : ControllerBase
     {
         private readonly IAttributeService _attributeService;

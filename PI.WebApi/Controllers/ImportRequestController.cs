@@ -8,6 +8,7 @@ namespace PI.WebApi.Controllers
 {
     [Route("api/v1/import-request")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class ImportRequestController : ControllerBase
     {
         private readonly IImportRequestService _importRequestService;

@@ -15,6 +15,8 @@ namespace PI.WebApi.Controllers
 {
     [Route("api/stock-check")]
     [ApiController]
+    [ApiExplorerSettings(IgnoreApi = true)]
+
     public class StockCheckController : ControllerBase
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;

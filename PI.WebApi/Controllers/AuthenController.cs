@@ -9,6 +9,7 @@ namespace PI.WebApi.Controllers
 
     [ApiController]
     [Route("api/v1/auth")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class AuthenController : ControllerBase
     {
         private readonly IAuthenService _authenService;

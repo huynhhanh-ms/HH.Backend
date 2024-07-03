@@ -6,6 +6,7 @@ namespace PI.WebApi.Controllers
 {
     [ApiController]
     [Route("api/v1/category-limit")]
+    [ApiExplorerSettings(IgnoreApi = true)]
     public class CategoryLimitController : ControllerBase
     {
         private readonly ICategoryLimitService _categoryLimitService;
