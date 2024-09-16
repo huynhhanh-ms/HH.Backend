@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="10.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.8">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,7 +17,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\HH.Application\HH.Application.csproj" />
     <ProjectReference Include="..\HH.Domain\HH.Domain.csproj" />
+    <ProjectReference Include="..\HH.Infrastructure\HH.Infrastructure.csproj" />
+    <ProjectReference Include="..\HH.Persistence\HH.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

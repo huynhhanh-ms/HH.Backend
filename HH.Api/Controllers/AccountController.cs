@@ -1,4 +1,6 @@
-﻿using HH.Domain.Models;
+﻿using HH.Application.Services;
+using HH.Domain.Common;
+using HH.Domain.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,24 +11,24 @@ namespace HH.Api.Controllers
     [Route("api/account")]
     public class AccountController : ControllerBase
     {
-        private readonly HhDatabaseContext _context;
+        private readonly IAccountService _service;
 
-        public AccountController(HhDatabaseContext context)
+        public AccountController(IAccountService accountService)
         {
-            _context = context;
+            _service = accountService;
         }
 
         /// <summary>
-        /// Create account staff for system (only manager can do this)
+        /// 
         /// </summary>
-        /// <param name="request"></param>
-        /// <returns> response </returns>
-        [HttpGet("get")]
-        //[Authorize(Roles = "Manager, Admin")]
-        public async Task<IActionResult> GetAccount()
+        /// <returns></returns>
+        //[Authorize(Roles = "")]
+        [HttpGet]
+        public async Task<IActionResult> Search([FromQuery] SearchBaseRequest param)
         {
-            var result = await _context.Accounts.ToListAsync();
-            return Ok(result);
+            var result = await _service.Search(param);
+            return StatusCode((int)result.StatusCode, result);
         }
+
     }
 }

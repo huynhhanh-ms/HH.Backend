@@ -1,6 +1,11 @@
-﻿using HH.Domain;
+﻿using Autofac;
+using HH.Domain.Common;
+using HH.Persistence;
 using HH.Domain.Models;
+using HH.Infrastructure.Common;
 using Microsoft.EntityFrameworkCore;
+using HH.Application.Common;
+using HH.Persistence.DbContexts;
 
 namespace HH.Api.Configuration
 {
@@ -41,6 +46,27 @@ namespace HH.Api.Configuration
         {
             return app.UseCors(CorsPolicyName);
         }
+
+        // Register services for autofac
+        public static void RegisterServices(this ContainerBuilder builder)
+        {
+            builder.RegisterInfrastructureServices();
+
+            builder.RegisterPersitenceServices();
+
+            builder.RegisterApplicationServices();
+
+            //builder.RegisterMiddleware();
+
+            builder.RegisterMapsterMappingTypes();
+        }
+
+        //public static void RegisterMiddleware(this ContainerBuilder builder)
+        //{
+        //    builder.RegisterType<ExceptionMiddleware>().AsSelf().InstancePerLifetimeScope();
+        //    builder.RegisterType<CurrentAccountMiddleware>().AsSelf().InstancePerLifetimeScope();
+        //}
+
 
     }
 }

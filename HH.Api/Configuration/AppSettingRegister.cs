@@ -1,4 +1,4 @@
-﻿using HH.Domain;
+﻿using HH.Domain.Common;
 using System.Runtime.InteropServices;
 
 namespace HH.Api.Configuration

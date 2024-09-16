@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using HH.Domain.Common;
+using HH.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace HH.Domain.Models;
+namespace HH.Persistence.DbContexts;
 
 public partial class HhDatabaseContext : DbContext
 {
@@ -20,8 +22,10 @@ public partial class HhDatabaseContext : DbContext
     public virtual DbSet<WeighingHistory> WeighingHistories { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseNpgsql("Host=huynhhanh.com;Port=5432;Database=HH.Database;Username=sa;Password=QWErty789)");
-        //=> optionsBuilder.UseNpgsql(AppConfig.ConnectionStrings.DefaultConnection);
+        => optionsBuilder
+        //.UseLazyLoadingProxies(useLazyLoadingProxies: false)
+        .UseNpgsql(AppConfig.ConnectionStrings.DefaultConnection)
+        .LogTo(Console.WriteLine);
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -57,6 +61,12 @@ public partial class HhDatabaseContext : DbContext
             entity.Property(e => e.Phone)
                 .HasMaxLength(12)
                 .HasColumnName("phone");
+            entity.Property(e => e.Role)
+                .HasMaxLength(50)
+                .HasColumnName("role");
+            entity.Property(e => e.Status)
+                .HasMaxLength(50)
+                .HasColumnName("status");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("CURRENT_TIMESTAMP")
                 .HasColumnType("timestamp without time zone")
