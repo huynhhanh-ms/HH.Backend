@@ -17,3 +17,10 @@ create table account (
 	updated_by INT,
 	is_deleted BOOLEAN default false
 );
+
+ALTER TABLE account 
+ALTER COLUMN created_at SET NOT NULL,
+ALTER COLUMN created_by SET NOT NULL,
+ALTER COLUMN updated_at SET NOT NULL,
+ALTER COLUMN updated_by SET NOT null,
+alter column is_deleted set not null;

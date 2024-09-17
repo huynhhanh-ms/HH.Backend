@@ -1,8 +1,11 @@
-using HH.Api.Configuration;
+﻿using HH.Api.Configuration;
+using HH.Api.Middleware;
 using HH.Application.Common;
 using HH.Domain.Common;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
+using PI.WebApi.Configuration;
 using System.Text;
 
 
@@ -13,12 +16,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Configuration.SettingsBinding();
 
 // Add services to the container.
-
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
-
 
 builder.Services
     .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -58,18 +58,31 @@ builder.Services.AddServices();
 // Add AutoFac
 builder.ConfigureAutofacContainer();
 
+builder.Services.AddHttpClient();
+
+// Register FluentValidation
+builder.Services.AddFluentValidation();
+
+builder.Services.AddSwagger();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || true)
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggers();
 }
 
-app.UseHttpsRedirection();
+app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<CurrentAccountMiddleware>();
 
+app.UseHttpsRedirection();
+app.UseAuthentication(); 
 app.UseAuthorization();
+
+app.UseCorsPolicy();
+
 
 app.MapControllers();
 

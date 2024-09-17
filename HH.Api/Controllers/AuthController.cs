@@ -1,4 +1,5 @@
 ﻿using HH.Application.Services;
+using HH.Domain.Common;
 using HH.Domain.Dto.Authen;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -40,6 +41,51 @@ namespace HH.Api.Controllers
             }
             return StatusCode((int)result.StatusCode, result);
         }
+
+
+        [HttpPost("refresh-token")]
+        [AllowAnonymous]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest request)
+        {
+            //get access token from cookie
+            var result = await _service.RefreshToken(request.AccessToken);
+            if (result is { StatusCode: HttpStatusCode.OK, Data: not null })
+            {
+                //set cookie
+                Response.Cookies.Append("access_token", result.Data.AccessToken, new CookieOptions
+                {
+                    HttpOnly = true,
+                    Expires = DateTime.UtcNow.AddHours(AppConfig.JwtSetting.AccessTokenExpiration),
+                    SameSite = SameSiteMode.Strict,
+                    Secure = true
+                });
+            }
+            else
+            {
+                //remove cookie
+                Response.Cookies.Delete("access_token");
+            }
+            return StatusCode((int)result.StatusCode, result);
+        }
+        [Authorize]
+        [HttpGet("me")]
+        public async Task<IActionResult> GetAuthenticatedAccount()
+        {
+            var result = await _service.GetCurrentAccount();
+            return StatusCode((int)result.StatusCode, result);
+        }
+
+        [HttpDelete("logout")]
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            //get access token from header request
+            await _service.Logout();
+            //remove cookie
+            Response.Cookies.Delete("access_token");
+            return StatusCode((int)HttpStatusCode.OK, "Logout successfully!");
+        }
+
 
     }
 }

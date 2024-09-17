@@ -6,6 +6,7 @@ using HH.Infrastructure.Common;
 using Microsoft.EntityFrameworkCore;
 using HH.Application.Common;
 using HH.Persistence.DbContexts;
+using HH.Api.Middleware;
 
 namespace HH.Api.Configuration
 {
@@ -14,7 +15,7 @@ namespace HH.Api.Configuration
         public static void AddServices(this IServiceCollection services)
         {
             services.AddDbContext();
-            //services.AddCorsPolicy();
+            services.AddCorsPolicy();
         }
 
         //* Add DbContext
@@ -56,16 +57,16 @@ namespace HH.Api.Configuration
 
             builder.RegisterApplicationServices();
 
-            //builder.RegisterMiddleware();
+            builder.RegisterMiddleware();
 
             builder.RegisterMapsterMappingTypes();
         }
 
-        //public static void RegisterMiddleware(this ContainerBuilder builder)
-        //{
-        //    builder.RegisterType<ExceptionMiddleware>().AsSelf().InstancePerLifetimeScope();
-        //    builder.RegisterType<CurrentAccountMiddleware>().AsSelf().InstancePerLifetimeScope();
-        //}
+        public static void RegisterMiddleware(this ContainerBuilder builder)
+        {
+            builder.RegisterType<ExceptionMiddleware>().AsSelf().InstancePerLifetimeScope();
+            builder.RegisterType<CurrentAccountMiddleware>().AsSelf().InstancePerLifetimeScope();
+        }
 
 
     }
