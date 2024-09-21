@@ -56,7 +56,7 @@ namespace HH.Api.Configuration
 
                     c.AddServer(new OpenApiServer
                     {
-                        Url = "https://pharmacy.wyvernp.id.vn/",
+                        Url = "https://huynhhanh.com",
                         Description = "Production"
                     });
                 }
@@ -64,7 +64,7 @@ namespace HH.Api.Configuration
                 {
                     c.AddServer(new OpenApiServer
                     {
-                        Url = "https://pharmacy.wyvernp.id.vn/",
+                        Url = "https://huynhhanh.com",
                         Description = "Production"
                     });
                 }
