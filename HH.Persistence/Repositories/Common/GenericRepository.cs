@@ -12,7 +12,9 @@ namespace HH.Persistence.Repositories.Common
     public abstract class GenericRepository<TEntity> : IGenericRepository<TEntity>
         where TEntity : class, IEntityBase
     {
+
         //private DapperClient? _dapperDAO = null;
+
 
         protected readonly DbContext _dbContext;
         protected readonly DbSet<TEntity> _dbSet;
@@ -21,6 +23,10 @@ namespace HH.Persistence.Repositories.Common
         {
             _dbContext = context;
             _dbSet = context.Set<TEntity>();
+        }
+        public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbContext.SaveChangesAsync(cancellationToken);
         }
 
         private IDbConnection DbConnection => _dbContext.Database.GetDbConnection();

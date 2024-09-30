@@ -8,12 +8,11 @@ using HH.Persistence.Repositories.Helper;
 using Microsoft.EntityFrameworkCore;
 
 
-namespace HH.Persistence.Repositories
+namespace HH.Persistence.Repositories;
+
+public class AccountRepository : GenericRepository<Account>, IAccountRepository
 {
-    public class AccountRepository : GenericRepository<Account>, IAccountRepository
+    public AccountRepository(DbContext context) : base(context)
     {
-        public AccountRepository(DbContext context) : base(context)
-        {
-        }
     }
 }

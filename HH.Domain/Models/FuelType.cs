@@ -6,30 +6,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HH.Domain.Models;
 
-[Table("lubricant")]
-public partial class Lubricant
+[Table("fuel_type")]
+public partial class FuelType
 {
     [Key]
     [Column("id")]
     public int Id { get; set; }
 
     [Column("name")]
-    [StringLength(100)]
+    [StringLength(255)]
     public string Name { get; set; } = null!;
 
-    [Column("current_stock")]
-    public int CurrentStock { get; set; }
-
-    [Column("import_price")]
-    [Precision(13, 2)]
-    public decimal? ImportPrice { get; set; }
-
-    [Column("sell_price")]
-    [Precision(13, 2)]
-    public decimal? SellPrice { get; set; }
-
-    [Column("import_date", TypeName = "timestamp without time zone")]
-    public DateTime? ImportDate { get; set; }
+    [Column("description")]
+    [StringLength(255)]
+    public string? Description { get; set; }
 
     [Column("created_at", TypeName = "timestamp without time zone")]
     public DateTime? CreatedAt { get; set; }
@@ -45,4 +35,10 @@ public partial class Lubricant
 
     [Column("is_deleted")]
     public bool IsDeleted { get; set; }
+
+    [InverseProperty("FuelType")]
+    public virtual ICollection<FuelPrice> FuelPrices { get; set; } = new List<FuelPrice>();
+
+    [InverseProperty("Type")]
+    public virtual ICollection<Tank> Tanks { get; set; } = new List<Tank>();
 }

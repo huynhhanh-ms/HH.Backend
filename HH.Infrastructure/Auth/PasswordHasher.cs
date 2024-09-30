@@ -1,6 +1,6 @@
 ﻿using System.Security.Cryptography;
 using HH.Domain.Infrastructure.Auth;
-using HH.Infrastructure.Common;
+using HH.Infrastructure;
 
 namespace PI.Infrastructure.Auth
 {

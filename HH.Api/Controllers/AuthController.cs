@@ -85,7 +85,5 @@ namespace HH.Api.Controllers
             Response.Cookies.Delete("access_token");
             return StatusCode((int)HttpStatusCode.OK, "Logout successfully!");
         }
-
-
     }
 }

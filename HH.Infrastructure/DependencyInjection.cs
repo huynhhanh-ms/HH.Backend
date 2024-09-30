@@ -1,8 +1,10 @@
 ﻿using Autofac;
+
 //using HH.Domain.BackgroundQueue;
 using HH.Domain.Enums;
 //using HH.Domain.Infrastructure.Api;
 using HH.Domain.Infrastructure.Auth;
+
 //using HH.Domain.Infrastructure.Caching;
 //using HH.Domain.Infrastructure.Discord;
 //using HH.Domain.Infrastructure.File;
@@ -19,7 +21,7 @@ using PI.Infrastructure.Auth;
 //using HH.Infrastructure.Hubs.Simulation;
 //using HH.Infrastructure.Lockers;
 
-namespace HH.Infrastructure.Common
+namespace HH.Infrastructure
 {
     public static class DependencyInjection
     {

@@ -2,28 +2,21 @@
 using HH.Domain.Common;
 using HH.Domain.Dto;
 using HH.Domain.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace HH.Api.Controllers
 {
     [ApiController]
-    [Route("api/account")]
-    public class AccountController : ControllerBase
+    [Route("api/tank")]
+    public class TankController : ControllerBase
     {
-        private readonly IAccountService _service;
+        private readonly ITankService _service;
 
-        public AccountController(IAccountService accountService)
+        public TankController(ITankService service)
         {
-            _service = accountService;
+            _service = service;
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
-        //[Authorize(Roles = "")]
         [HttpGet]
         public async Task<IActionResult> Gets([FromQuery] SearchBaseRequest param)
         {
@@ -39,14 +32,14 @@ namespace HH.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] Account request)
+        public async Task<IActionResult> Update([FromBody] Tank request)
         {
             var result = await _service.Update(request);
             return StatusCode((int)result.StatusCode, result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AccountCreateDto request)
+        public async Task<IActionResult> Create([FromBody] TankCreateDto request)
         {
             var result = await _service.Create(request);
             return StatusCode((int)result.StatusCode, result);
@@ -58,6 +51,5 @@ namespace HH.Api.Controllers
             var result = await _service.Delete(id);
             return StatusCode((int)result.StatusCode, result);
         }
-
     }
 }

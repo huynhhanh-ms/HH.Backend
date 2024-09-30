@@ -2,11 +2,11 @@
 using HH.Domain.Common;
 using HH.Persistence;
 using HH.Domain.Models;
-using HH.Infrastructure.Common;
 using Microsoft.EntityFrameworkCore;
 using HH.Application.Common;
 using HH.Persistence.DbContexts;
 using HH.Api.Middleware;
+using HH.Infrastructure;
 
 namespace HH.Api.Configuration
 {

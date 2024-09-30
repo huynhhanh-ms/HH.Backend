@@ -1,0 +1,1 @@
+Scaffold-DbContext "Host=;Port=;Database=;Username=;Password=;" Pomelo.EntityFrameworkCore.MySql -OutputDir ../PI.Domain/Model -ContextDir ../PI.Infrastructure/DbContexts -Force -DataAnnotations

@@ -11,6 +11,8 @@ namespace HH.Domain.Repositories.Common
 {
     public interface IGenericRepository<TEntity> : IRepository where TEntity : class, IEntityBase
     {
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
+
         #region Query
         Task<TEntity?> FindAsync(int entityId);
         Task<TEntity?> FindAsync(Expression<Func<TEntity, bool>> predicate);

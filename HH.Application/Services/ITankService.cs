@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace HH.Application.Services
 {
-    public interface IAccountService
+    public interface ITankService
     {
-        Task<ApiResponse<bool>> Create(AccountCreateDto request);
-        Task<ApiResponse<bool>> Update(Account request);
-        Task<ApiResponse<List<Account>>> Gets(SearchBaseRequest request);
-        Task<ApiResponse<Account>> Get(int id);
+        Task<ApiResponse<bool>> Create(TankCreateDto request);
+        Task<ApiResponse<bool>> Update(Tank request);
+        Task<ApiResponse<List<Tank>>> Gets(SearchBaseRequest request);
+        Task<ApiResponse<Tank>> Get(int id);
         Task<ApiResponse<bool>> Delete(int id);
     }
 }

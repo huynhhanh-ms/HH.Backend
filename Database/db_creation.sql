@@ -1,5 +1,5 @@
 
-CREATE TYPE user_role AS ENUM ('admin', 'user', 'guest', 'staff', 'manager');
+CREATE TYPE user_role AS ENUM ('Admin', 'User', 'Guest', 'Staff', 'Manager');
 CREATE TYPE account_status AS ENUM ('active', 'inactive', 'suspended');
 
 CREATE TABLE role (
@@ -19,56 +19,56 @@ create table account (
     status VARCHAR(50) not null,
     phone VARCHAR(12),
     
-    created_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-    created_by INT not null,
-    updated_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-	updated_by INT not null,
-	is_deleted BOOLEAN not null default false
+    created_at TIMESTAMP default CURRENT_TIMESTAMP,
+    created_by INT,
+    updated_at TIMESTAMP default CURRENT_TIMESTAMP,
+	  updated_by INT,
+	  is_deleted BOOLEAN not null default false
 );
 
 
 
--- Table for product types such as fuel, oil, etc.
-CREATE TABLE product_type (
+-- Table for fuel types such as fuel, oil, etc.
+CREATE TABLE fuel_type (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255),
     
-    created_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-    created_by INT not null,
-    updated_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-	updated_by INT not null,
-	is_deleted BOOLEAN not null default false
+    created_at TIMESTAMP default CURRENT_TIMESTAMP,
+    created_by INT,
+    updated_at TIMESTAMP default CURRENT_TIMESTAMP,
+	  updated_by INT,
+	  is_deleted BOOLEAN not null default false
 );
 
--- Table for prices of products (fuel, oil) at different times
-CREATE TABLE product_price (
+-- Table for prices of fuel (fuel, oil) at different times
+CREATE TABLE fuel_price (
     id SERIAL PRIMARY KEY,
-    product_type_id INT REFERENCES product_type(id),
+    fuel_type_id INT REFERENCES fuel_type(id),
     selling_price DECIMAL(13, 2) NOT NULL,
     import_price DECIMAL(13, 2) NOT null,
     
-    created_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-    created_by INT not null,
-    updated_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-	updated_by INT not null,
-	is_deleted BOOLEAN not null default false
+    created_at TIMESTAMP default CURRENT_TIMESTAMP,
+    created_by INT,
+    updated_at TIMESTAMP default CURRENT_TIMESTAMP,
+	  updated_by INT,
+	  is_deleted BOOLEAN not null default false
 );
 
 -- Table for managing tanks (fuel, oil, etc.)
 CREATE TABLE tank (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    type_id INT REFERENCES product_type(id),
+    type_id INT REFERENCES fuel_type(id),
     height DECIMAL(13, 2),
     current_volume DECIMAL(13, 2),
     capacity DECIMAL(13, 2),
     
-    created_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-    created_by INT not null,
-    updated_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-	updated_by INT not null,
-	is_deleted BOOLEAN not null default false
+    created_at TIMESTAMP default CURRENT_TIMESTAMP,
+    created_by INT,
+    updated_at TIMESTAMP default CURRENT_TIMESTAMP,
+	  updated_by INT,
+	  is_deleted BOOLEAN not null default false
 );
 
 -- Table for fuel import history
@@ -81,14 +81,14 @@ CREATE TABLE fuel_import (
     weight DECIMAL(13, 2),
     total_cost DECIMAL(15, 2),
     
-    created_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-    created_by INT not null,
-    updated_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-	updated_by INT not null,
-	is_deleted BOOLEAN not null default false
+    created_at TIMESTAMP default CURRENT_TIMESTAMP,
+    created_by INT,
+    updated_at TIMESTAMP default CURRENT_TIMESTAMP,
+	  updated_by INT,
+	  is_deleted BOOLEAN not null default false
 );
 
--- Table for managing lubricants (oil and related products)
+-- Table for managing lubricants (oil and related fuels)
 CREATE TABLE lubricant (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
@@ -97,11 +97,11 @@ CREATE TABLE lubricant (
     sell_price DECIMAL(13, 2),
     import_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     
-    created_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-    created_by INT not null,
-    updated_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-	updated_by INT not null,
-	is_deleted BOOLEAN not null default false
+    created_at TIMESTAMP default CURRENT_TIMESTAMP,
+    created_by INT,
+    updated_at TIMESTAMP default CURRENT_TIMESTAMP,
+	  updated_by INT,
+	  is_deleted BOOLEAN not null default false
 );
 
 -- Table for sessions, representing periods of sales and tracking
@@ -113,11 +113,11 @@ CREATE TABLE session (
     end_date TIMESTAMP,
     fuel_price DECIMAL(13, 2),
     
-    created_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-    created_by INT not null,
-    updated_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-	updated_by INT not null,
-	is_deleted BOOLEAN not null default false
+    created_at TIMESTAMP default CURRENT_TIMESTAMP,
+    created_by INT,
+    updated_at TIMESTAMP default CURRENT_TIMESTAMP,
+	  updated_by INT,
+	  is_deleted BOOLEAN not null default false
 );
 
 -- Table for session details tracking volume and revenue per tank
@@ -129,11 +129,11 @@ CREATE TABLE session_detail (
     end_volume DECIMAL(13, 2) NOT NULL,
     revenue DECIMAL(13, 2),
     
-    created_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-    created_by INT not null,
-    updated_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-	updated_by INT not null,
-	is_deleted BOOLEAN not null default false
+    created_at TIMESTAMP default CURRENT_TIMESTAMP,
+    created_by INT,
+    updated_at TIMESTAMP default CURRENT_TIMESTAMP,
+	  updated_by INT,
+	  is_deleted BOOLEAN not null default false
 );
 
 -- Table for expense types, e.g., debts, borrowed money, miscellaneous expenses
@@ -142,11 +142,11 @@ CREATE TABLE expense_type (
     name VARCHAR(255) NOT NULL,
     description VARCHAR(255),
     
-    created_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-    created_by INT not null,
-    updated_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-	updated_by INT not null,
-	is_deleted BOOLEAN not null default false
+    created_at TIMESTAMP default CURRENT_TIMESTAMP,
+    created_by INT,
+    updated_at TIMESTAMP default CURRENT_TIMESTAMP,
+	  updated_by INT,
+	  is_deleted BOOLEAN not null default false
 );
 
 -- Table for tracking expenses within a session
@@ -160,9 +160,9 @@ CREATE TABLE expense (
     debtor VARCHAR(255),
     image VARCHAR(255),
     
-    created_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-    created_by INT not null,
-    updated_at TIMESTAMP not null default CURRENT_TIMESTAMP,
-	updated_by INT not null,
-	is_deleted BOOLEAN not null default false
+    created_at TIMESTAMP default CURRENT_TIMESTAMP,
+    created_by INT,
+    updated_at TIMESTAMP default CURRENT_TIMESTAMP,
+	  updated_by INT,
+	  is_deleted BOOLEAN not null default false
 );

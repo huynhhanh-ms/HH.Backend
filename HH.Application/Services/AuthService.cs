@@ -43,11 +43,11 @@ namespace HH.Application.Services
             // Check if username is existed
             ValidateException.ThrowIfNull(account, "Username is not existed");
             // Check if password is correct
-            ValidateException.ThrowIf(!account.PasswordHash.Equals(request.Password), "Password is incorrect");
-            //ValidateException.ThrowIf(!_passwordHasher.Verify(account.PasswordHash, request.Password), "Password is incorrect");
+            //ValidateException.ThrowIf(!account.PasswordHash.Equals(request.Password), "Password is incorrect");
+            ValidateException.ThrowIf(!_passwordHasher.Verify(account.PasswordHash, request.Password), "Password is incorrect");
 
             // Check if account is locked
-            ValidateException.ThrowIf(account.Status == AccountStatus.Inactive.ToString(), "Account is locked");
+            ValidateException.ThrowIf(account.Status == AccountStatus.Inactive.ToString(), "Tài khoản bị khóa (inactive)");
 
             //create token
             var accessToken = _tokenService.Encode(new GenerateTokenRequest
