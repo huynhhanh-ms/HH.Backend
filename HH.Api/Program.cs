@@ -74,6 +74,15 @@ if (app.Environment.IsDevelopment() || true)
     app.UseSwaggers();
 }
 
+//set timezone
+//app.Use(async (context, next) =>
+//{
+//    TimeZoneInfo timeZoneInfo = TimeZoneInfo.Utc;
+//    DateTime utcNow = TimeZoneInfo.ConvertTime(DateTime.Now, timeZoneInfo);
+//    await next.Invoke();
+//});
+
+
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<CurrentAccountMiddleware>();
 

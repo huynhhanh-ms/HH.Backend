@@ -10,7 +10,7 @@ public partial class HhDatabaseContext : DbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder
-        //.UseLazyLoadingProxies(useLazyLoadingProxies: false)
+        .UseLazyLoadingProxies(useLazyLoadingProxies: false)
         .UseNpgsql(AppConfig.ConnectionStrings.DefaultConnection)
         .LogTo(Console.WriteLine);
 

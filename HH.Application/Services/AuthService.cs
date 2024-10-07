@@ -41,10 +41,10 @@ namespace HH.Application.Services
             var account = await _unitOfWork.Resolve<Account>().FindAsync(x => x.Username.Equals(request.Username));
 
             // Check if username is existed
-            ValidateException.ThrowIfNull(account, "Username is not existed");
+            ValidateException.ThrowIfNull(account, "Tài khoản không tồn tại");
             // Check if password is correct
             //ValidateException.ThrowIf(!account.PasswordHash.Equals(request.Password), "Password is incorrect");
-            ValidateException.ThrowIf(!_passwordHasher.Verify(account.PasswordHash, request.Password), "Password is incorrect");
+            ValidateException.ThrowIf(!_passwordHasher.Verify(account.PasswordHash, request.Password), "Mật khẩu không đúng");
 
             // Check if account is locked
             ValidateException.ThrowIf(account.Status == AccountStatus.Inactive.ToString(), "Tài khoản bị khóa (inactive)");

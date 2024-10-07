@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 
 namespace HH.Domain.Models;
@@ -11,6 +12,7 @@ public partial class Tank
 {
     [Key]
     [Column("id")]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int Id { get; set; }
 
     [Column("name")]
@@ -47,6 +49,7 @@ public partial class Tank
     [Column("is_deleted")]
     public bool IsDeleted { get; set; }
 
+    [JsonIgnore]
     [InverseProperty("Tank")]
     public virtual ICollection<FuelImport> FuelImports { get; set; } = new List<FuelImport>();
 

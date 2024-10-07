@@ -18,10 +18,6 @@ namespace HH.Application.Services
         {
             var tank = request.Adapt<Tank>();
 
-            tank.CreatedBy = 0;
-            tank.UpdatedBy = 0;
-            tank.Id = 10;
-
             await _unitOfWork.Resolve<Tank>().CreateAsync(tank);
             await _unitOfWork.SaveChangesAsync();
 
@@ -47,6 +43,8 @@ namespace HH.Application.Services
         public async Task<ApiResponse<List<Tank>>> Gets(SearchBaseRequest request)
         {
             var tanks = await _unitOfWork.Resolve<Tank>().GetAllAsync();
+            tanks = tanks.OrderBy(tank => tank.Id);
+
             if (tanks == null)
                 return Failed<List<Tank>>("Không tìm thấy");
             return Success<List<Tank>>(tanks.ToList());
