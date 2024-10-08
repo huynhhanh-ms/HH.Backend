@@ -46,6 +46,10 @@ public partial class Session
     [Column("is_deleted")]
     public bool IsDeleted { get; set; }
 
+    [Column("status")]
+    [StringLength(50)]
+    public string? Status { get; set; }
+
     [InverseProperty("Session")]
     public virtual ICollection<Expense> Expenses { get; set; } = new List<Expense>();
 
