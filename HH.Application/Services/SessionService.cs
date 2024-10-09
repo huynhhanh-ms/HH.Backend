@@ -14,17 +14,15 @@ namespace HH.Application.Services
         {
         }
 
-        public async Task<ApiResponse<bool>> Create(SessionCreateDto request)
+        public async Task<ApiResponse<int>> Create(SessionCreateDto request)
         {
             var Session = request.Adapt<Session>();
-
             Session.StartDate = DateTime.Now;
-
 
             await _unitOfWork.Resolve<Session>().CreateAsync(Session);
             await _unitOfWork.SaveChangesAsync();
 
-            return Success<bool>("Tạo thành công");
+            return Success<int>(Session.Id, "Tạo thành công");
         }
 
         public async Task<ApiResponse<bool>> Delete(int id)
@@ -34,31 +32,39 @@ namespace HH.Application.Services
             return Success<bool>("Xóa thành công");
         }
 
-        public async Task<ApiResponse<Session>> Get(int id)
+        public async Task<ApiResponse<SessionGetDto>> Get(int id)
         {
             var Session = await _unitOfWork.Resolve<Session>().FindAsync(id);
+            var SessionGetDto = Session.Adapt<SessionGetDto>();
 
             if (Session == null)
-                return Failed<Session>("Không tìm thấy");
+                return Failed<SessionGetDto>("Không tìm thấy");
 
-            return Success<Session>(Session);
+            return Success<SessionGetDto>(SessionGetDto);
         }
 
         public async Task<ApiResponse<List<Session>>> Gets(SearchBaseRequest request)
         {
             var Sessions = await _unitOfWork.Resolve<Session>().GetAllAsync();
+            Sessions = Sessions.OrderBy(Session => -Session.Id);
+
             if (Sessions == null)
                 return Failed<List<Session>>("Không tìm thấy");
             return Success<List<Session>>(Sessions.ToList());
         }
 
-        public async Task<ApiResponse<bool>> Update(Session request)
+        public async Task<ApiResponse<bool>> Update(SessionUpdateDto request)
         {
             var Session = await _unitOfWork.Resolve<Session>().FindAsync(request.Id);
+
             if (Session == null)
                 return Failed<bool>("Không tìm thấy");
 
-            await _unitOfWork.Resolve<Session>().UpdateAsync(request);
+            var updatedSession = request.Adapt<Session>();
+
+            await _unitOfWork.Resolve<Session>().UpdateAsync(updatedSession);
+            await _unitOfWork.SaveChangesAsync();
+
             return Success<bool>("Cập nhật thành công");
         }
     }

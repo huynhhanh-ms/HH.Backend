@@ -11,10 +11,10 @@ namespace HH.Application.Services
 {
     public interface ISessionService
     {
-        Task<ApiResponse<bool>> Create(SessionCreateDto request);
-        Task<ApiResponse<bool>> Update(Session request);
+        Task<ApiResponse<int>> Create(SessionCreateDto request);
+        Task<ApiResponse<bool>> Update(SessionUpdateDto request);
         Task<ApiResponse<List<Session>>> Gets(SearchBaseRequest request);
-        Task<ApiResponse<Session>> Get(int id);
+        Task<ApiResponse<SessionGetDto>> Get(int id);
         Task<ApiResponse<bool>> Delete(int id);
     }
 }

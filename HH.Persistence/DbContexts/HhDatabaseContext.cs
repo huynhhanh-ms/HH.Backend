@@ -30,9 +30,9 @@ public partial class HhDatabaseContext : DbContext
 
     public virtual DbSet<Lubricant> Lubricants { get; set; }
 
-    public virtual DbSet<Session> Sessions { get; set; }
+    public virtual DbSet<PetrolPump> PetrolPumps { get; set; }
 
-    public virtual DbSet<SessionDetail> SessionDetails { get; set; }
+    public virtual DbSet<Session> Sessions { get; set; }
 
     public virtual DbSet<Tank> Tanks { get; set; }
 
@@ -117,6 +117,20 @@ public partial class HhDatabaseContext : DbContext
             entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
+        modelBuilder.Entity<PetrolPump>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("session_detail_pkey");
+
+            entity.Property(e => e.Id).HasDefaultValueSql("nextval('session_detail_id_seq'::regclass)");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+            entity.HasOne(d => d.Session).WithMany(p => p.PetrolPumps).HasConstraintName("session_detail_session_id_fkey");
+
+            entity.HasOne(d => d.Tank).WithMany(p => p.PetrolPumps).HasConstraintName("session_detail_tank_id_fkey");
+        });
+
         modelBuilder.Entity<Session>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("session_pkey");
@@ -126,19 +140,6 @@ public partial class HhDatabaseContext : DbContext
             entity.Property(e => e.StartDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.Status).HasDefaultValueSql("'Processing'::character varying");
             entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
-        });
-
-        modelBuilder.Entity<SessionDetail>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("session_detail_pkey");
-
-            entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
-            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
-            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-            entity.HasOne(d => d.Session).WithMany(p => p.SessionDetails).HasConstraintName("session_detail_session_id_fkey");
-
-            entity.HasOne(d => d.Tank).WithMany(p => p.SessionDetails).HasConstraintName("session_detail_tank_id_fkey");
         });
 
         modelBuilder.Entity<Tank>(entity =>

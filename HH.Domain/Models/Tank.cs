@@ -54,7 +54,7 @@ public partial class Tank
     public virtual ICollection<FuelImport> FuelImports { get; set; } = new List<FuelImport>();
 
     [InverseProperty("Tank")]
-    public virtual ICollection<SessionDetail> SessionDetails { get; set; } = new List<SessionDetail>();
+    public virtual ICollection<PetrolPump> PetrolPumps { get; set; } = new List<PetrolPump>();
 
     [ForeignKey("TypeId")]
     [InverseProperty("Tanks")]

@@ -16,15 +16,15 @@ public class SessionRepository : GenericRepository<Session>, ISessionRepository
     public SessionRepository(DbContext context) : base(context)
     {
     }
-    //public virtual async Task<IEnumerable<Session>> GetAllAsync()
-    //{
-    //    return await _dbSet.AsNoTracking()
-    //                        .WhereStringWithExist(string.Empty)
-    //                        .Include(x => x.Tank)
-    //                        //.SelectWithField<Session, SessionGetDto>()
-    //                        .WithOrderByString("ImportDate:desc")
-    //                        .ToListAsync()
-    //                        .ConfigureAwait(false);
-    //}
+    public override async Task<Session?> FindAsync(int entityId)
+    {
+        return await _dbSet.AsNoTracking()
+                            .WhereStringWithExist(string.Empty)
+                            .Include(x => x.PetrolPumps)
+                            .ThenInclude(x => x.Tank)
+                            //.SelectWithField<Session, SessionGetDto>()
+                            .FirstOrDefaultAsync(x => x.Id == entityId)
+                            .ConfigureAwait(false);
+    }
 
 }

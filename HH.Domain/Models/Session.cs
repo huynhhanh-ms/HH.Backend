@@ -27,10 +27,6 @@ public partial class Session
     [Column("end_date", TypeName = "timestamp without time zone")]
     public DateTime? EndDate { get; set; }
 
-    [Column("fuel_price")]
-    [Precision(13, 2)]
-    public decimal? FuelPrice { get; set; }
-
     [Column("created_at", TypeName = "timestamp without time zone")]
     public DateTime? CreatedAt { get; set; }
 
@@ -54,5 +50,5 @@ public partial class Session
     public virtual ICollection<Expense> Expenses { get; set; } = new List<Expense>();
 
     [InverseProperty("Session")]
-    public virtual ICollection<SessionDetail> SessionDetails { get; set; } = new List<SessionDetail>();
+    public virtual ICollection<PetrolPump> PetrolPumps { get; set; } = new List<PetrolPump>();
 }

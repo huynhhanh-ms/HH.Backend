@@ -9,19 +9,22 @@ using System.Threading.Tasks;
 
 namespace HH.Domain.Dto;
 
-public class SessionCreateDto
+public class SessionUpdateDto
 {
-    //[Column("total_revenue")]
-    //[Precision(15, 2)]
-    //public decimal? TotalRevenue { get; set; }
+    public int Id { get; set; }
 
-    [Column("cash_for_change")]
-    [Precision(13, 2)]
+    public decimal? TotalRevenue { get; set; }
+
     public decimal? CashForChange { get; set; }
 
+    public DateTime? StartDate { get; set; }
+
+    public DateTime? EndDate { get; set; }
+
+    public string? Status { get; set; }
     //[InverseProperty("Session")]
     //public virtual ICollection<Expense> Expenses { get; set; } = new List<Expense>();
 
     //[InverseProperty("Session")]
-    public ICollection<PetrolPumpCreateDto> PetrolPumps { get; set; }
+    public ICollection<PetrolPumpUpdateDto> PetrolPumps { get; set; }
 }
