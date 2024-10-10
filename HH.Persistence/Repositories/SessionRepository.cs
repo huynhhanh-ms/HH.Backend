@@ -22,6 +22,8 @@ public class SessionRepository : GenericRepository<Session>, ISessionRepository
                             .WhereStringWithExist(string.Empty)
                             .Include(x => x.PetrolPumps)
                             .ThenInclude(x => x.Tank)
+                            .Include(x => x.Expenses.Where(x => !x.IsDeleted))
+                            .ThenInclude(x => x.ExpenseType)
                             //.SelectWithField<Session, SessionGetDto>()
                             .FirstOrDefaultAsync(x => x.Id == entityId)
                             .ConfigureAwait(false);

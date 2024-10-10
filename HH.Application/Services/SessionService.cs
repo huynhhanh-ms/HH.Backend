@@ -35,10 +35,12 @@ namespace HH.Application.Services
         public async Task<ApiResponse<SessionGetDto>> Get(int id)
         {
             var Session = await _unitOfWork.Resolve<Session>().FindAsync(id);
-            var SessionGetDto = Session.Adapt<SessionGetDto>();
 
             if (Session == null)
                 return Failed<SessionGetDto>("Không tìm thấy");
+
+            Session.Expenses = Session.Expenses.OrderBy(Expense => -Expense.Id).ToList();
+            var SessionGetDto = Session.Adapt<SessionGetDto>();
 
             return Success<SessionGetDto>(SessionGetDto);
         }

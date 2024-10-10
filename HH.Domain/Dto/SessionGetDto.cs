@@ -22,9 +22,8 @@ public class SessionGetDto
     public DateTime? EndDate { get; set; }
 
     public string? Status { get; set; }
-    //[InverseProperty("Session")]
-    //public virtual ICollection<Expense> Expenses { get; set; } = new List<Expense>();
 
-    //[InverseProperty("Session")]
+    public ICollection<ExpenseGetDto> Expenses { get; set; }
+
     public ICollection<PetrolPumpGetDto> PetrolPumps { get; set; }
 }
