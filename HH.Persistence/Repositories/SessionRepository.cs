@@ -16,17 +16,31 @@ public class SessionRepository : GenericRepository<Session>, ISessionRepository
     public SessionRepository(DbContext context) : base(context)
     {
     }
+
+    public async Task<IEnumerable<SessionGetDto>> FindAll()
+    {
+        return await _dbSet.AsNoTracking()
+                            .Include(x => x.PetrolPumps)
+                            .ThenInclude(x => x.Tank)
+                            .Include(x => x.Expenses.Where(x => !x.IsDeleted))
+                            .ThenInclude(x => x.ExpenseType)
+            .SelectWithField<Session, SessionGetDto>()
+            .ToListAsync();
+    }
+
     public override async Task<Session?> FindAsync(int entityId)
     {
         return await _dbSet.AsNoTracking()
                             .WhereStringWithExist(string.Empty)
                             .Include(x => x.PetrolPumps)
-                            .ThenInclude(x => x.Tank)
+                            //.ThenInclude(x => x.Tank)
                             .Include(x => x.Expenses.Where(x => !x.IsDeleted))
-                            .ThenInclude(x => x.ExpenseType)
+                            //.ThenInclude(x => x.ExpenseType)
                             //.SelectWithField<Session, SessionGetDto>()
                             .FirstOrDefaultAsync(x => x.Id == entityId)
                             .ConfigureAwait(false);
     }
+
+
 
 }

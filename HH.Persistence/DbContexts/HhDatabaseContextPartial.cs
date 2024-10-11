@@ -15,7 +15,8 @@ public partial class HhDatabaseContext : DbContext
         => optionsBuilder
         .UseLazyLoadingProxies(useLazyLoadingProxies: false)
         .UseNpgsql(AppConfig.ConnectionStrings.DefaultConnection)
-        .LogTo(Console.WriteLine);
+        .EnableSensitiveDataLogging()
+        .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information);
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder)
     {

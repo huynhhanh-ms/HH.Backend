@@ -46,6 +46,10 @@ public partial class Session
     [StringLength(50)]
     public string? Status { get; set; }
 
+    [Column("total_expense")]
+    [Precision(15, 2)]
+    public decimal? TotalExpense { get; set; }
+
     [InverseProperty("Session")]
     public virtual ICollection<Expense> Expenses { get; set; } = new List<Expense>();
 

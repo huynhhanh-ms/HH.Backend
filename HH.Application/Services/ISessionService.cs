@@ -16,5 +16,7 @@ namespace HH.Application.Services
         Task<ApiResponse<List<Session>>> Gets(SearchBaseRequest request);
         Task<ApiResponse<SessionGetDto>> Get(int id);
         Task<ApiResponse<bool>> Delete(int id);
+
+        Task<ApiResponse<bool>> Close(int id);
     }
 }

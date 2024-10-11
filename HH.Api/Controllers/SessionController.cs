@@ -51,5 +51,12 @@ namespace HH.Api.Controllers
             var result = await _service.Delete(id);
             return StatusCode((int)result.StatusCode, result);
         }
+
+        [HttpPut("close")]
+        public async Task<IActionResult> Close([FromBody] int id)
+        {
+            var result = await _service.Close(id);
+            return StatusCode((int)result.StatusCode, result);
+        }
     }
 }

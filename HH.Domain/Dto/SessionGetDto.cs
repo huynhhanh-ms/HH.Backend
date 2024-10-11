@@ -16,6 +16,7 @@ public class SessionGetDto
     public decimal? TotalRevenue { get; set; }
 
     public decimal? CashForChange { get; set; }
+    public decimal? TotalExpense { get; set; }
 
     public DateTime? StartDate { get; set; }
 

@@ -12,7 +12,7 @@ namespace HH.Domain.Enums
     {
         Processing,
         Calculating,
-        Close,
+        Closed,
     }
 }
 

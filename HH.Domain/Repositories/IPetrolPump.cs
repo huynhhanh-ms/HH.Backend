@@ -9,10 +9,8 @@ using System.Threading.Tasks;
 
 namespace HH.Domain.Repositories;
 
-public interface ISessionRepository : IGenericRepository<Session>
+public interface IPetrolPumpRepository : IGenericRepository<PetrolPump>
 {
-    public new Task<Session> FindAsync(int entityId);
-    public Task<IEnumerable<SessionGetDto>> FindAll();
-
+    public new Task<PetrolPump> FindAsync(int entityId);
 }
 
