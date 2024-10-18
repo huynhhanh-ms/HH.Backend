@@ -1,0 +1,11 @@
+# version: '3.4'
+
+services:
+  backend:
+    # image: ${DOCKER_REGISTRY-}hh-backend
+    build:
+      context: .
+      dockerfile: HH.Api/Dockerfile
+    ports:
+      - "8080:8080"
+      - "8081:6789"
