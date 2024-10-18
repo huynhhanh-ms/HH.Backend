@@ -64,12 +64,12 @@ namespace HH.Api.Configuration
                 {
                     c.AddServer(new OpenApiServer
                     {
-                        Url = "https://huynhhanh.com",
+                        Url = "http://huynhhanh.com",
                         Description = "Production"
                     });
                     c.AddServer(new OpenApiServer
                     {
-                        Url = "http://huynhhanh.com",
+                        Url = "https://huynhhanh.com",
                         Description = "Production"
                     });
                 }
