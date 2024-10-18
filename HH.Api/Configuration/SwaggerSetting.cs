@@ -67,6 +67,11 @@ namespace HH.Api.Configuration
                         Url = "https://huynhhanh.com",
                         Description = "Production"
                     });
+                    c.AddServer(new OpenApiServer
+                    {
+                        Url = "http://huynhhanh.com",
+                        Description = "Production"
+                    });
                 }
 
                 // Set the document
