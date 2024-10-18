@@ -9,3 +9,6 @@ services:
     ports:
       - "8080:8080"
       - "6789:6789"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:6789;http://+:8080

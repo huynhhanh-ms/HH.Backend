@@ -27,7 +27,7 @@ USER app
 
 WORKDIR /app
 EXPOSE 8080
-EXPOSE 8081
+EXPOSE 6789
 
 COPY --chown=app:app . .
 

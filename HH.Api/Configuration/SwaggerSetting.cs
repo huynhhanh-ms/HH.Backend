@@ -56,7 +56,7 @@ namespace HH.Api.Configuration
 
                     c.AddServer(new OpenApiServer
                     {
-                        Url = "https://huynhhanh.com",
+                        Url = "https://api.huynhhanh.com",
                         Description = "Production"
                     });
                 }
@@ -64,14 +64,25 @@ namespace HH.Api.Configuration
                 {
                     c.AddServer(new OpenApiServer
                     {
-                        Url = "http://huynhhanh.com",
+                        Url = "http://api.huynhhanh.com",
                         Description = "Production"
                     });
                     c.AddServer(new OpenApiServer
                     {
-                        Url = "https://huynhhanh.com",
+                        Url = "https://api.huynhhanh.com",
                         Description = "Production"
                     });
+                    c.AddServer(new OpenApiServer
+                    {
+                        Url = "https://localhost:8080/",
+                        Description = "Local"
+                    });
+                    c.AddServer(new OpenApiServer
+                    {
+                        Url = "http://localhost:6789/",
+                        Description = "Local"
+                    });
+
                 }
 
                 // Set the document
