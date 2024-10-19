@@ -2,7 +2,7 @@
 
 services:
   backend:
-    # image: ${DOCKER_REGISTRY-}hh-backend
+    image: jinergenkai/hh-backend
     build:
       context: .
       dockerfile: HH.Api/Dockerfile

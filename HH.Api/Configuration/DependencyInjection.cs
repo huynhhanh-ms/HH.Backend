@@ -38,8 +38,11 @@ namespace HH.Api.Configuration
                 {
                     builder.AllowAnyHeader()
                         .AllowAnyMethod()
-                        .AllowCredentials()
-                        .WithOrigins(corsOrigins);
+                             .AllowCredentials()
+                             .WithOrigins(corsOrigins);
+                             // can not use * or AnyOrigin in withcredentials
+                             //.AllowAnyOrigin();
+
                 });
             });
         }
