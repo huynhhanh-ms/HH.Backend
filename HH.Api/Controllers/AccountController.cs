@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 namespace HH.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/account")]
     public class AccountController : ControllerBase
     {

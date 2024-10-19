@@ -86,7 +86,7 @@ if (app.Environment.IsDevelopment() || true)
 app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<CurrentAccountMiddleware>();
 
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection(); // redirect http to https when have ssl and configure in launchSettings.json
 app.UseAuthentication(); 
 app.UseAuthorization();
 

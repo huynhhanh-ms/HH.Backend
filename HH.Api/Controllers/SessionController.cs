@@ -1,12 +1,14 @@
 ﻿using HH.Application.Services;
 using HH.Domain.Common;
 using HH.Domain.Dto;
+using Microsoft.AspNetCore.Authorization;
 using HH.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HH.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/session")]
     public class SessionController : ControllerBase
     {

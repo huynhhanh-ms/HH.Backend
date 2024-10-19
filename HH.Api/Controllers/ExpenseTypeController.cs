@@ -3,10 +3,12 @@ using HH.Domain.Common;
 using HH.Domain.Dto;
 using HH.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HH.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/expense-type")]
     public class ExpenseTypeController : ControllerBase
     {

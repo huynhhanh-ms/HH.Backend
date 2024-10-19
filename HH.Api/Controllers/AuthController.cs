@@ -9,6 +9,7 @@ using System.Net;
 namespace HH.Api.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {

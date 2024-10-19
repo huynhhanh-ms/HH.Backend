@@ -2,12 +2,14 @@
 using HH.Domain.Common;
 using HH.Domain.Dto;
 using HH.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HH.Api.Controllers
 {
     [ApiController]
     [Route("api/expense")]
+    [Authorize]
     public class ExpenseController : ControllerBase
     {
         private readonly IExpenseService _service;
