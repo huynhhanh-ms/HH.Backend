@@ -10,8 +10,8 @@ namespace HH.Domain.Models;
 public partial class WeighingHistory
 {
     [Key]
-    [Column("wh_id")]
-    public int WhId { get; set; }
+    [Column("id")]
+    public int Id { get; set; }
 
     [Column("customer_name")]
     [StringLength(100)]

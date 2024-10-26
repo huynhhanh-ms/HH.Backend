@@ -36,6 +36,10 @@ public partial class HhDatabaseContext : DbContext
 
     public virtual DbSet<Tank> Tanks { get; set; }
 
+    public virtual DbSet<TriggerLog> TriggerLogs { get; set; }
+
+    public virtual DbSet<WeighingHistory> WeighingHistories { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
@@ -151,6 +155,23 @@ public partial class HhDatabaseContext : DbContext
             entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             entity.HasOne(d => d.Type).WithMany(p => p.Tanks).HasConstraintName("tank_type_id_fkey");
+        });
+
+        modelBuilder.Entity<TriggerLog>(entity =>
+        {
+            entity.Property(e => e.CreateAt).HasDefaultValueSql("now()");
+            entity.Property(e => e.Id).HasDefaultValueSql("nextval('test_trigger_id_seq'::regclass)");
+        });
+
+        modelBuilder.Entity<WeighingHistory>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("weighing_history_pkey");
+
+            entity.Property(e => e.CreatedBy).HasDefaultValue(0);
+            entity.Property(e => e.CreatedDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.CustomerName).HasDefaultValueSql("'Vô Danh'::character varying");
+            entity.Property(e => e.UpdatedBy).HasDefaultValue(0);
+            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
         OnModelCreatingPartial(modelBuilder);

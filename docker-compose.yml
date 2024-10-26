@@ -11,4 +11,8 @@ services:
       - "6789:6789"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
-      - ASPNETCORE_URLS=http://+:6789;http://+:8080
+      - ASPNETCORE_URLS=http://+:6789;https://+:8080
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=QWErty789)
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
+    volumes:
+      - ~/.aspnet/https:/https:ro
