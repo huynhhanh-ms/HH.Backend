@@ -13,7 +13,7 @@ namespace HH.Application.Services
     {
         Task<ApiResponse<int>> Create(SessionCreateDto request);
         Task<ApiResponse<bool>> Update(SessionUpdateDto request);
-        Task<ApiResponse<List<Session>>> Gets(SearchBaseRequest request);
+        Task<ApiResponse<List<SessionGetDto>>> Gets(SearchBaseRequest request);
         Task<ApiResponse<SessionGetDto>> Get(int id);
         Task<ApiResponse<bool>> Delete(int id);
 

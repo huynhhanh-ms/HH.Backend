@@ -20,7 +20,7 @@ public partial class HhDatabaseContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder)
     {
-        //ApplyFilterForAllEntities(modelBuilder);
+        ApplyFilterForAllEntities(modelBuilder);
     }
 
     private void ApplyFilterForAllEntities(ModelBuilder modelBuilder)

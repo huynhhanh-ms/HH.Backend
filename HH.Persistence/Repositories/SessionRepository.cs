@@ -28,7 +28,20 @@ public class SessionRepository : GenericRepository<Session>, ISessionRepository
             .ToListAsync();
     }
 
-    public override async Task<Session?> FindAsync(int entityId)
+    public async Task<Session?> FindAsync(int entityId)
+    {
+        return await _dbSet.AsNoTracking()
+                            .WhereStringWithExist(string.Empty)
+                            .Include(x => x.PetrolPumps)
+                            .ThenInclude(x => x.Tank)
+                            .Include(x => x.Expenses.Where(x => !x.IsDeleted))
+                            //.ThenInclude(x => x.ExpenseType)
+                            //.SelectWithField<Session, SessionGetDto>()
+                            .FirstOrDefaultAsync(x => x.Id == entityId)
+                            .ConfigureAwait(false);
+    }
+
+    public async Task<Session?> FindSingleAsync(int entityId)
     {
         return await _dbSet.AsNoTracking()
                             .WhereStringWithExist(string.Empty)
@@ -40,6 +53,7 @@ public class SessionRepository : GenericRepository<Session>, ISessionRepository
                             .FirstOrDefaultAsync(x => x.Id == entityId)
                             .ConfigureAwait(false);
     }
+
 
 
 

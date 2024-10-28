@@ -5,6 +5,7 @@ using HH.Domain.Enums;
 using HH.Domain.Models;
 using HH.Domain.Repositories;
 using HH.Domain.Repositories.Common;
+using HH.Persistence.Repositories;
 using HH.Persistence.Repositories.Common;
 using Mapster;
 
@@ -18,7 +19,7 @@ namespace HH.Application.Services
 
         public async Task<ApiResponse<bool>> Close(int id)
         {
-            var Session = await _unitOfWork.Resolve<Session>().FindAsync(id);
+            var Session = await _unitOfWork.Resolve<ISessionRepository>().FindAsync(id);
             if (Session == null)
                 return Failed<bool>("Không tìm thấy");
 
@@ -48,6 +49,10 @@ namespace HH.Application.Services
                 pump.Price = lastPump?.OrderBy(p => -p.SessionId)
                                       .FirstOrDefault(p => p.TankId == pump.TankId && p.Price.HasValue && p.Price != 0)?
                                       .Price ?? 0;
+                if (pump.StartVolume == 0)
+                    pump.StartVolume = lastPump?.OrderBy(p => -p.SessionId)
+                                            .FirstOrDefault(p => p.TankId == pump.TankId && p.EndVolume != 0)?
+                                            .EndVolume ?? 0;
                 return pump;
             }).ToList();    
 
@@ -82,7 +87,7 @@ namespace HH.Application.Services
 
         public async Task<ApiResponse<SessionGetDto>> Get(int id)
         {
-            var Session = await _unitOfWork.Resolve<Session>().FindAsync(id);
+            var Session = await _unitOfWork.Resolve<ISessionRepository>().FindAsync(id);
 
             if (Session == null)
                 return Failed<SessionGetDto>("Không tìm thấy");
@@ -93,14 +98,14 @@ namespace HH.Application.Services
             return Success<SessionGetDto>(SessionGetDto);
         }
 
-        public async Task<ApiResponse<List<Session>>> Gets(SearchBaseRequest request)
+        public async Task<ApiResponse<List<SessionGetDto>>> Gets(SearchBaseRequest request)
         {
             var res = await _unitOfWork.Resolve<ISessionRepository>().FindAll();
-            var Sessions = res.Adapt<List<Session>>().OrderBy(Session => -Session.Id).ToList();
+            var Sessions = res.Adapt<List<SessionGetDto>>().OrderBy(Session => -Session.Id).ToList();
 
             if (Sessions == null)
-                return Failed<List<Session>>("Không tìm thấy");
-            return Success<List<Session>>(Sessions);
+                return Failed<List<SessionGetDto>>("Không tìm thấy");
+            return Success<List<SessionGetDto>>(Sessions);
         }
 
         public async Task<ApiResponse<bool>> Update(SessionUpdateDto request)

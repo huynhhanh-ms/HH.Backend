@@ -11,7 +11,8 @@ namespace HH.Domain.Repositories;
 
 public interface ISessionRepository : IGenericRepository<Session>
 {
-    public new Task<Session> FindAsync(int entityId);
+    public Task<Session> FindAsync(int entityId);
+    public Task<Session> FindSingleAsync(int entityId);
     public Task<IEnumerable<SessionGetDto>> FindAll();
 
 }

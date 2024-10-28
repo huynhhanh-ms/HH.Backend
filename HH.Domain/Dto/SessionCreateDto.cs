@@ -23,5 +23,5 @@ public class SessionCreateDto
     //public virtual ICollection<Expense> Expenses { get; set; } = new List<Expense>();
 
     //[InverseProperty("Session")]
-    public ICollection<PetrolPumpCreateDto> PetrolPumps { get; set; }
+    public ICollection<PetrolPumpCreateDto>? PetrolPumps { get; set; }
 }
