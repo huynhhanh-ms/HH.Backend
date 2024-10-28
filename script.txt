@@ -1,1 +1,3 @@
 Scaffold-DbContext "Server=huynhhanh.com;Port=5432;Userid=sa;Password=;Database=HH.Database" Npgsql.EntityFrameworkCore.PostgreSQL -o Models -DataAnnotations -f -ContextDir ../HH.Persistence/DbContexts
+
+#test
