@@ -24,6 +24,8 @@ public partial class HhDatabaseContext : DbContext
 
     public virtual DbSet<FuelImport> FuelImports { get; set; }
 
+    public virtual DbSet<FuelImportSession> FuelImportSessions { get; set; }
+
     public virtual DbSet<FuelPrice> FuelPrices { get; set; }
 
     public virtual DbSet<FuelType> FuelTypes { get; set; }
@@ -87,8 +89,23 @@ public partial class HhDatabaseContext : DbContext
             entity.Property(e => e.ImportDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.IsDeleted).HasDefaultValue(false);
             entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.VolumeUsed).HasDefaultValueSql("0");
 
             entity.HasOne(d => d.Tank).WithMany(p => p.FuelImports).HasConstraintName("fuel_import_tank_id_fkey");
+        });
+
+        modelBuilder.Entity<FuelImportSession>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("fuel_import_session_pkey");
+
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.VolumeUsed).HasDefaultValueSql("0");
+
+            entity.HasOne(d => d.FuelImport).WithMany(p => p.FuelImportSessions).HasConstraintName("fuel_import_session_fuel_import_id_fkey");
+
+            entity.HasOne(d => d.Session).WithMany(p => p.FuelImportSessions).HasConstraintName("fuel_import_session_session_id_fkey");
         });
 
         modelBuilder.Entity<FuelPrice>(entity =>

@@ -1,7 +1,9 @@
 ﻿using HH.Application.Common;
 using HH.Domain.Common;
 using HH.Domain.Dto;
+using HH.Domain.Enums;
 using HH.Domain.Models;
+using HH.Domain.Repositories;
 using HH.Domain.Repositories.Common;
 using HH.Persistence.Repositories.Common;
 using Mapster;
@@ -20,6 +22,8 @@ namespace HH.Application.Services
 
             FuelImport.TotalCost = FuelImport.ImportPrice * FuelImport.ImportVolume;
             FuelImport.ImportDate = DateTime.Now;
+            FuelImport.Status = FuelImportStatus.Processing.ToString();
+            FuelImport.TotalSalePrice = 0;
 
             await _unitOfWork.Resolve<FuelImport>().CreateAsync(FuelImport);
             await _unitOfWork.SaveChangesAsync();
@@ -34,31 +38,34 @@ namespace HH.Application.Services
             return Success<bool>("Xóa thành công");
         }
 
-        public async Task<ApiResponse<FuelImport>> Get(int id)
+        public async Task<ApiResponse<FuelImportGetDto>> Get(int id)
         {
             var FuelImport = await _unitOfWork.Resolve<FuelImport>().FindAsync(id);
 
             if (FuelImport == null)
-                return Failed<FuelImport>("Không tìm thấy");
+                return Failed<FuelImportGetDto>("Không tìm thấy");
 
-            return Success<FuelImport>(FuelImport);
+            return Success<FuelImportGetDto>(FuelImport.Adapt<FuelImportGetDto>());
         }
 
-        public async Task<ApiResponse<List<FuelImport>>> Gets(SearchBaseRequest request)
+        public async Task<ApiResponse<List<FuelImportGetDto>>> Gets(SearchBaseRequest request)
         {
-            var FuelImports = await _unitOfWork.Resolve<FuelImport>().GetAllAsync();
+            var FuelImports = await _unitOfWork.Resolve<IFuelImportRepository>().GetAllWithInclude();
             if (FuelImports == null)
-                return Failed<List<FuelImport>>("Không tìm thấy");
-            return Success<List<FuelImport>>(FuelImports.ToList());
+                return Failed<List<FuelImportGetDto>>("Không tìm thấy");
+
+            return Success<List<FuelImportGetDto>>(FuelImports.Adapt<List<FuelImportGetDto>>());
         }
 
-        public async Task<ApiResponse<bool>> Update(FuelImport request)
+        public async Task<ApiResponse<bool>> Update(FuelImportUpdateDto request)
         {
             var FuelImport = await _unitOfWork.Resolve<FuelImport>().FindAsync(request.Id);
             if (FuelImport == null)
                 return Failed<bool>("Không tìm thấy");
 
-            await _unitOfWork.Resolve<FuelImport>().UpdateAsync(request);
+            var FuelImportConverted = request.Adapt(FuelImport);
+
+            await _unitOfWork.Resolve<FuelImport>().UpdateAsync(FuelImportConverted);
             return Success<bool>("Cập nhật thành công");
         }
     }

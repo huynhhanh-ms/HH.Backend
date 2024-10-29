@@ -34,7 +34,7 @@ namespace HH.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] FuelImport request)
+        public async Task<IActionResult> Update([FromBody] FuelImportUpdateDto request)
         {
             var result = await _service.Update(request);
             return StatusCode((int)result.StatusCode, result);

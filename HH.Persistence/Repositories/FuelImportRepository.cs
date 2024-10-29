@@ -16,7 +16,7 @@ public class FuelImportRepository : GenericRepository<FuelImport>, IFuelImportRe
     public FuelImportRepository(DbContext context) : base(context)
     {
     }
-    public virtual async Task<IEnumerable<FuelImport>> GetAllAsync()
+    public async Task<IEnumerable<FuelImport>> GetAllWithInclude()
     {
         return await _dbSet.AsNoTracking()
                             .WhereStringWithExist(string.Empty)

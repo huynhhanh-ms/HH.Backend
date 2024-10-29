@@ -50,6 +50,19 @@ public partial class FuelImport
     [Column("is_deleted")]
     public bool IsDeleted { get; set; }
 
+    [Column("volume_used")]
+    public decimal? VolumeUsed { get; set; }
+
+    [Column("status")]
+    [StringLength(50)]
+    public string? Status { get; set; }
+
+    [Column("total_sale_price")]
+    public decimal? TotalSalePrice { get; set; }
+
+    [InverseProperty("FuelImport")]
+    public virtual ICollection<FuelImportSession> FuelImportSessions { get; set; } = new List<FuelImportSession>();
+
     [ForeignKey("TankId")]
     [InverseProperty("FuelImports")]
     public virtual Tank? Tank { get; set; }

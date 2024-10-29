@@ -12,9 +12,9 @@ namespace HH.Application.Services
     public interface IFuelImportService
     {
         Task<ApiResponse<bool>> Create(FuelImportCreateDto request);
-        Task<ApiResponse<bool>> Update(FuelImport request);
-        Task<ApiResponse<List<FuelImport>>> Gets(SearchBaseRequest request);
-        Task<ApiResponse<FuelImport>> Get(int id);
+        Task<ApiResponse<bool>> Update(FuelImportUpdateDto request);
+        Task<ApiResponse<List<FuelImportGetDto>>> Gets(SearchBaseRequest request);
+        Task<ApiResponse<FuelImportGetDto>> Get(int id);
         Task<ApiResponse<bool>> Delete(int id);
     }
 }

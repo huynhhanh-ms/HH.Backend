@@ -9,8 +9,8 @@ using System.Threading.Tasks;
 
 namespace HH.Domain.Repositories;
 
-public interface IFuelImportRepository : IGenericRepository<FuelImport>
+public interface IFuelImportSessionRepository : IGenericRepository<FuelImportSession>
 {
-    public Task<IEnumerable<FuelImport>> GetAllWithInclude();
+    //public new Task<IEnumerable<FuelImport>> GetAllAsync();
 }
 

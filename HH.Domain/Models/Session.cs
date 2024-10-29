@@ -54,5 +54,8 @@ public partial class Session
     public virtual ICollection<Expense> Expenses { get; set; } = new List<Expense>();
 
     [InverseProperty("Session")]
+    public virtual ICollection<FuelImportSession> FuelImportSessions { get; set; } = new List<FuelImportSession>();
+
+    [InverseProperty("Session")]
     public virtual ICollection<PetrolPump> PetrolPumps { get; set; } = new List<PetrolPump>();
 }

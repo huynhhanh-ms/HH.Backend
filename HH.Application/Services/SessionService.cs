@@ -26,10 +26,59 @@ namespace HH.Application.Services
             if (Session.EndDate != null)
                 return Failed<bool>("Phiên đã đóng");
 
+            // Update volume_used and add fuelImportSession for each pump
+            var importDetails = new List<FuelImportSession>();
+            var fuelImport = await _unitOfWork.Resolve<FuelImport>().GetAllAsync();
+            if (fuelImport == null)
+                return Failed<bool>("Không thấy đợt nhập nào");
+
+            // with each pump in a session
+            foreach (var pump in Session.PetrolPumps)
+            {
+                var tankId = pump.TankId;
+                var totalVolumeUsed = pump.TotalVolume;
+
+                // For from oldest to newest fuel import
+                foreach (var import in fuelImport.OrderBy(x => x.ImportDate))
+                {
+                    if (totalVolumeUsed <= 0) break;
+                    if (import.Status == "Closed")                continue;
+                    if (import.VolumeUsed >= import.ImportVolume) continue;
+                    if (import.TankId != tankId)                  continue;
+
+                    // Calculate volume used for this import
+                    var volumeUsed = Math.Min((import?.ImportVolume ?? 0) - (import?.VolumeUsed ?? 0), 
+                                              (totalVolumeUsed ?? 0));
+
+                    if (volumeUsed <= 0) break;
+
+                    import.VolumeUsed = (import.VolumeUsed ?? 0) + volumeUsed;
+                    import.TotalSalePrice = (import.TotalSalePrice ?? 0) + volumeUsed * pump.Price;
+                    if (import.VolumeUsed >= import.ImportVolume)
+                        import.Status = "Closed";
+
+                    //add new fuelImportSession if volumeUsed > 0
+                    var fuelImportSession = new FuelImportSession
+                    {
+                        SessionId = Session.Id,
+                        FuelImportId = import.Id,
+                        VolumeUsed = volumeUsed,
+                        SalePrice = volumeUsed * pump.Price, 
+                    };
+                    importDetails.Add(fuelImportSession);
+
+                    totalVolumeUsed -= (int) volumeUsed;
+                }
+                if (totalVolumeUsed > 0)
+                    return Failed<bool>("Không đủ dữ liệu nhập nhiên liệu để xuất");
+            }
+
             Session.EndDate = DateTime.Now;
             Session.Status = SessionStatus.Closed.ToString();
 
             await _unitOfWork.Resolve<Session>().UpdateAsync(Session);
+            await _unitOfWork.Resolve<FuelImport>().UpdateAsync(fuelImport.ToArray());
+            await _unitOfWork.Resolve<FuelImportSession>().UpdateAsync(importDetails.ToArray());
             await _unitOfWork.SaveChangesAsync();
 
             return Success<bool>(true, "Đóng phiên thành công");
@@ -47,14 +96,16 @@ namespace HH.Application.Services
             Session.PetrolPumps.Select(pump =>
             {
                 pump.Price = lastPump?.OrderBy(p => -p.SessionId)
+                                      .Where(p => p.IsDeleted == false)
                                       .FirstOrDefault(p => p.TankId == pump.TankId && p.Price.HasValue && p.Price != 0)?
                                       .Price ?? 0;
                 if (pump.StartVolume == 0)
                     pump.StartVolume = lastPump?.OrderBy(p => -p.SessionId)
+                                            .Where(p => p.IsDeleted == false)
                                             .FirstOrDefault(p => p.TankId == pump.TankId && p.EndVolume != 0)?
                                             .EndVolume ?? 0;
                 return pump;
-            }).ToList();    
+            }).ToList();
 
             await _unitOfWork.Resolve<Session>().CreateAsync(Session);
             await _unitOfWork.SaveChangesAsync();
