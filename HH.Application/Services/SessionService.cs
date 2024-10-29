@@ -19,7 +19,7 @@ namespace HH.Application.Services
 
         public async Task<ApiResponse<bool>> Close(int id)
         {
-            var Session = await _unitOfWork.Resolve<ISessionRepository>().FindAsync(id);
+            var Session = await _unitOfWork.Resolve<ISessionRepository>().FindSingleAsync(id);
             if (Session == null)
                 return Failed<bool>("Không tìm thấy");
 
@@ -110,7 +110,7 @@ namespace HH.Application.Services
 
         public async Task<ApiResponse<bool>> Update(SessionUpdateDto request)
         {
-            var Session = await _unitOfWork.Resolve<Session>().FindAsync(request.Id);
+            var Session = await _unitOfWork.Resolve<ISessionRepository>().FindSingleAsync(request.Id);
 
             if (Session == null)
                 return Failed<bool>("Không tìm thấy");
