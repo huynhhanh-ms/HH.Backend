@@ -34,6 +34,6 @@ namespace HH.Domain.Dto
 
         public decimal? TotalSalePrice { get; set; }
 
-        public ICollection<FuelImportSession> FuelImportSessions { get; set; } = new List<FuelImportSession>();
+        public ICollection<FuelImportSessionGetDto>? FuelImportSessions { get; set; }
     }
 }

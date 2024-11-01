@@ -21,6 +21,7 @@ public class FuelImportRepository : GenericRepository<FuelImport>, IFuelImportRe
         return await _dbSet.AsNoTracking()
                             .WhereStringWithExist(string.Empty)
                             .Include(x => x.Tank)
+                            .Include(x => x.FuelImportSessions)
                             //.SelectWithField<FuelImport, FuelImportGetDto>()
                             .WithOrderByString("ImportDate:desc")
                             .ToListAsync()
