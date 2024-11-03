@@ -38,6 +38,12 @@ public partial class WeighingHistory
     [Column("goods_weight")]
     public int? GoodsWeight { get; set; }
 
+    [Column("price")]
+    public decimal? Price { get; set; }
+
+    [Column("total_cost")]
+    public decimal? TotalCost { get; set; }
+
     [Column("total_weighing_date", TypeName = "timestamp without time zone")]
     public DateTime? TotalWeighingDate { get; set; }
 
@@ -50,15 +56,18 @@ public partial class WeighingHistory
     [Column("vehicle_images")]
     public List<string>? VehicleImages { get; set; }
 
-    [Column("created_date", TypeName = "timestamp without time zone")]
-    public DateTime? CreatedDate { get; set; }
-
-    [Column("updated_date", TypeName = "timestamp without time zone")]
-    public DateTime? UpdatedDate { get; set; }
+    [Column("created_at", TypeName = "timestamp without time zone")]
+    public DateTime? CreatedAt { get; set; }
 
     [Column("created_by")]
     public int? CreatedBy { get; set; }
 
+    [Column("updated_at", TypeName = "timestamp without time zone")]
+    public DateTime? UpdatedAt { get; set; }
+
     [Column("updated_by")]
     public int? UpdatedBy { get; set; }
+
+    [Column("is_deleted")]
+    public bool IsDeleted { get; set; }
 }

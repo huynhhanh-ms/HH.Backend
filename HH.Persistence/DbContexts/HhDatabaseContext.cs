@@ -185,10 +185,10 @@ public partial class HhDatabaseContext : DbContext
             entity.HasKey(e => e.Id).HasName("weighing_history_pkey");
 
             entity.Property(e => e.CreatedBy).HasDefaultValue(0);
-            entity.Property(e => e.CreatedDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.CustomerName).HasDefaultValueSql("'Vô Danh'::character varying");
             entity.Property(e => e.UpdatedBy).HasDefaultValue(0);
-            entity.Property(e => e.UpdatedDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
         OnModelCreatingPartial(modelBuilder);
