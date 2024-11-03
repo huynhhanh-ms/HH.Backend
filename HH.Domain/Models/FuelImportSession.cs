@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using IndexAttribute = Microsoft.EntityFrameworkCore.IndexAttribute;
 
 namespace HH.Domain.Models;
 
 [Table("fuel_import_session")]
-//[Index("FuelImportId", Name = "idx_fuel_import_session_fuel_import_id")]
-//[Index("SessionId", Name = "idx_fuel_import_session_session_id")]
+[Index("FuelImportId", Name = "idx_fuel_import_session_fuel_import_id")]
+[Index("SessionId", Name = "idx_fuel_import_session_session_id")]
 public partial class FuelImportSession
 {
     [Key]
