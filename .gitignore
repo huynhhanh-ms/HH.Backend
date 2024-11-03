@@ -539,3 +539,4 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/visualstudio,visualstudiocode
 
+/HH.Api/firebase.json

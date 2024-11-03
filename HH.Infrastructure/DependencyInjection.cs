@@ -4,6 +4,8 @@
 using HH.Domain.Enums;
 //using HH.Domain.Infrastructure.Api;
 using HH.Domain.Infrastructure.Auth;
+using HH.Domain.Infrastructure.File;
+
 
 //using HH.Domain.Infrastructure.Caching;
 //using HH.Domain.Infrastructure.Discord;
@@ -12,6 +14,7 @@ using HH.Domain.Infrastructure.Auth;
 //using HH.Domain.Infrastructure.Locker;
 //using HH.Infrastructure.Api;
 using HH.Infrastructure.Auth;
+using HH.Infrastructure.Firebase;
 using PI.Infrastructure.Auth;
 //using HH.Infrastructure.BackgroundQueue;
 //using HH.Infrastructure.Caching;
@@ -27,9 +30,9 @@ namespace HH.Infrastructure
     {
         public static void RegisterInfrastructureServices(this ContainerBuilder builder)
         {
-            //builder.RegisterType<FirebaseFileService>().As<IFileService>()
-            //    .Keyed<IFileService>(FileServiceProvider.Firebase)
-            //    .SingleInstance();
+            builder.RegisterType<FirebaseFileService>().As<IFileService>()
+                .Keyed<IFileService>(FileServiceProvider.Firebase)
+                .SingleInstance();
 
             //builder.RegisterType<CacheService>().As<ICacheService>().InstancePerDependency();
             builder.RegisterType<PasswordHasher>().As<IPasswordHasher>().InstancePerLifetimeScope();
