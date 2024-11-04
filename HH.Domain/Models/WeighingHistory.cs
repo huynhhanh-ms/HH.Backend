@@ -44,11 +44,11 @@ public partial class WeighingHistory
     [Column("total_cost")]
     public decimal? TotalCost { get; set; }
 
-    [Column("total_weighing_date", TypeName = "timestamp without time zone")]
-    public DateTime? TotalWeighingDate { get; set; }
+    [Column("total_weighing_date")]
+    public DateTimeOffset? TotalWeighingDate { get; set; }
 
-    [Column("vehicle_weighing_date", TypeName = "timestamp without time zone")]
-    public DateTime? VehicleWeighingDate { get; set; }
+    [Column("vehicle_weighing_date")]
+    public DateTimeOffset? VehicleWeighingDate { get; set; }
 
     [Column("note")]
     public string? Note { get; set; }

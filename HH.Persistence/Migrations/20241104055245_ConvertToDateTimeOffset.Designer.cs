@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using HH.Persistence.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HH.Persistence.Migrations
 {
     [DbContext(typeof(HhDatabaseContext))]
-    partial class HhDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241104055245_ConvertToDateTimeOffset")]
+    partial class ConvertToDateTimeOffset
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

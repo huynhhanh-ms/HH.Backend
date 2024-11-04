@@ -1,5 +1,6 @@
 ﻿using HH.Domain.Dto;
 using HH.Domain.Dto.Account;
+using HH.Domain.Dto.WeighingHistory;
 using HH.Domain.Models;
 using System.Xml.Serialization;
 
@@ -21,6 +22,11 @@ public static class RegisterMapsterMappingType
             .NewConfig()
             .Map(dest => dest.ExpenseTypeName, src => src.ExpenseType.Name)
             .IgnoreNullValues(true);
+
+        TypeAdapterConfig<WeighingHistoryUpdateDto, WeighingHistory>
+            .NewConfig()
+            .IgnoreNullValues(true);
+
 
         #endregion
     }

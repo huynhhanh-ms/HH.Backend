@@ -35,7 +35,7 @@ namespace HH.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] WeighingHistory request)
+        public async Task<IActionResult> Update([FromBody] WeighingHistoryUpdateDto request)
         {
             var result = await _service.Update(request);
             return StatusCode((int)result.StatusCode, result);

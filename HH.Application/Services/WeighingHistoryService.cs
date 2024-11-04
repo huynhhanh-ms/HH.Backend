@@ -27,36 +27,42 @@ namespace HH.Application.Services
         public async Task<ApiResponse<bool>> Delete(int id)
         {
             await _unitOfWork.Resolve<WeighingHistory>().DeleteAsync(id);
+            await _unitOfWork.SaveChangesAsync();
             return Success<bool>("Xóa thành công");
         }
 
-        public async Task<ApiResponse<WeighingHistory>> Get(int id)
+        public async Task<ApiResponse<WeighingHistoryGetDto>> Get(int id)
         {
             var WeighingHistory = await _unitOfWork.Resolve<WeighingHistory>().FindAsync(id);
+            var WeighingHistoryGetDto = WeighingHistory.Adapt<WeighingHistoryGetDto>();
 
             if (WeighingHistory == null)
-                return Failed<WeighingHistory>("Không tìm thấy");
+                return Failed<WeighingHistoryGetDto>("Không tìm thấy");
 
-            return Success<WeighingHistory>(WeighingHistory);
+            return Success<WeighingHistoryGetDto>(WeighingHistoryGetDto);
         }
 
-        public async Task<ApiResponse<List<WeighingHistory>>> Gets(SearchBaseRequest request)
+        public async Task<ApiResponse<List<WeighingHistoryGetDto>>> Gets(SearchBaseRequest request)
         {
             var WeighingHistorys = await _unitOfWork.Resolve<WeighingHistory>().GetAllAsync();
-            WeighingHistorys = WeighingHistorys.OrderBy(WeighingHistory => WeighingHistory.Id);
+            WeighingHistorys = WeighingHistorys.OrderBy(item => item.Id);
+            var WeighingHistoryGetDtos = WeighingHistorys.Adapt<List<WeighingHistoryGetDto>>();
 
             if (WeighingHistorys == null)
-                return Failed<List<WeighingHistory>>("Không tìm thấy");
-            return Success<List<WeighingHistory>>(WeighingHistorys.ToList());
+                return Failed<List<WeighingHistoryGetDto>>("Không tìm thấy");
+            return Success<List<WeighingHistoryGetDto>>(WeighingHistoryGetDtos);
         }
 
-        public async Task<ApiResponse<bool>> Update(WeighingHistory request)
+        public async Task<ApiResponse<bool>> Update(WeighingHistoryUpdateDto request)
         {
             var WeighingHistory = await _unitOfWork.Resolve<WeighingHistory>().FindAsync(request.Id);
             if (WeighingHistory == null)
                 return Failed<bool>("Không tìm thấy");
+            var updatedObject = request.Adapt(WeighingHistory);
 
-            await _unitOfWork.Resolve<WeighingHistory>().UpdateAsync(request);
+            await _unitOfWork.Resolve<WeighingHistory>().UpdateAsync(updatedObject);
+            await _unitOfWork.SaveChangesAsync();
+
             return Success<bool>("Cập nhật thành công");
         }
     }

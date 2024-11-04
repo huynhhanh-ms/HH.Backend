@@ -4,7 +4,7 @@ using System.Net;
 
 namespace HH.Api.Controllers
 {
-    [Route("api/v1/file")]
+    [Route("api/file")]
     [ApiController]
     public class FileController : ControllerBase
     {
