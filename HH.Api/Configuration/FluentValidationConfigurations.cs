@@ -7,6 +7,9 @@ using SharpGrip.FluentValidation.AutoValidation.Mvc.Enums;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Extensions;
 using SharpGrip.FluentValidation.AutoValidation.Mvc.Results;
 using System.Net;
+using HH.Domain.Dto.Authen;
+using HH.Domain.Dto.WeighingHistory;
+using System.Reflection;
 
 namespace PI.WebApi.Configuration
 {
@@ -14,7 +17,9 @@ namespace PI.WebApi.Configuration
     {
         public static void AddFluentValidation(this IServiceCollection services)
         {
-            //services.AddValidatorsFromAssemblyContaining<CreateExportRequestItemValidation>(); // for scan all validators, must have
+            //services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddValidatorsFromAssemblyContaining<LoginRequestValidator>();
+            // for scan all validators, must have
             services.AddFluentValidationAutoValidation(configuration =>
             {
                 // Disable the built-in .NET model (data annotations) validation.

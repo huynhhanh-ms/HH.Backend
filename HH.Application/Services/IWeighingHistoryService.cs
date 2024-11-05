@@ -14,7 +14,7 @@ namespace HH.Application.Services
     {
         Task<ApiResponse<bool>> Create(WeighingHistoryCreateDto request);
         Task<ApiResponse<bool>> Update(WeighingHistoryUpdateDto request);
-        Task<ApiResponse<List<WeighingHistoryGetDto>>> Gets(SearchBaseRequest request);
+        Task<ApiResponse<List<WeighingHistoryGetDto>>> Gets(WeighingHistorySearch request);
         Task<ApiResponse<WeighingHistoryGetDto>> Get(int id);
         Task<ApiResponse<bool>> Delete(int id);
     }

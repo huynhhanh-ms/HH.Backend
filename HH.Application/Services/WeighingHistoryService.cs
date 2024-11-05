@@ -2,6 +2,7 @@
 using HH.Domain.Common;
 using HH.Domain.Dto.WeighingHistory;
 using HH.Domain.Models;
+using HH.Domain.Repositories;
 using HH.Domain.Repositories.Common;
 using HH.Persistence.Repositories.Common;
 using Mapster;
@@ -18,7 +19,7 @@ namespace HH.Application.Services
         {
             var WeighingHistory = request.Adapt<WeighingHistory>();
 
-            await _unitOfWork.Resolve<WeighingHistory>().CreateAsync(WeighingHistory);
+            await _unitOfWork.Resolve<IWeighingHistoryRepository>().CreateAsync(WeighingHistory);
             await _unitOfWork.SaveChangesAsync();
 
             return Success<bool>("Tạo thành công");
@@ -26,14 +27,14 @@ namespace HH.Application.Services
 
         public async Task<ApiResponse<bool>> Delete(int id)
         {
-            await _unitOfWork.Resolve<WeighingHistory>().DeleteAsync(id);
+            await _unitOfWork.Resolve<IWeighingHistoryRepository>().DeleteAsync(id);
             await _unitOfWork.SaveChangesAsync();
             return Success<bool>("Xóa thành công");
         }
 
         public async Task<ApiResponse<WeighingHistoryGetDto>> Get(int id)
         {
-            var WeighingHistory = await _unitOfWork.Resolve<WeighingHistory>().FindAsync(id);
+            var WeighingHistory = await _unitOfWork.Resolve<IWeighingHistoryRepository>().FindAsync(id);
             var WeighingHistoryGetDto = WeighingHistory.Adapt<WeighingHistoryGetDto>();
 
             if (WeighingHistory == null)
@@ -42,9 +43,9 @@ namespace HH.Application.Services
             return Success<WeighingHistoryGetDto>(WeighingHistoryGetDto);
         }
 
-        public async Task<ApiResponse<List<WeighingHistoryGetDto>>> Gets(SearchBaseRequest request)
+        public async Task<ApiResponse<List<WeighingHistoryGetDto>>> Gets(WeighingHistorySearch request)
         {
-            var WeighingHistorys = await _unitOfWork.Resolve<WeighingHistory>().GetAllAsync();
+            var WeighingHistorys = await _unitOfWork.Resolve<IWeighingHistoryRepository>().GetsInDateRange(request.StartDate, request.EndDate);
             WeighingHistorys = WeighingHistorys.OrderBy(item => item.Id);
             var WeighingHistoryGetDtos = WeighingHistorys.Adapt<List<WeighingHistoryGetDto>>();
 
@@ -55,7 +56,7 @@ namespace HH.Application.Services
 
         public async Task<ApiResponse<bool>> Update(WeighingHistoryUpdateDto request)
         {
-            var WeighingHistory = await _unitOfWork.Resolve<WeighingHistory>().FindAsync(request.Id);
+            var WeighingHistory = await _unitOfWork.Resolve<IWeighingHistoryRepository>().FindAsync(request.Id);
             if (WeighingHistory == null)
                 return Failed<bool>("Không tìm thấy");
             var updatedObject = request.Adapt(WeighingHistory);

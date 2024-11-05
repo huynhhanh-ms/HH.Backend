@@ -21,7 +21,7 @@ namespace HH.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Gets([FromQuery] SearchBaseRequest param)
+        public async Task<IActionResult> Gets([FromQuery] WeighingHistorySearch param)
         {
             var result = await _service.Gets(param);
             return StatusCode((int)result.StatusCode, result);

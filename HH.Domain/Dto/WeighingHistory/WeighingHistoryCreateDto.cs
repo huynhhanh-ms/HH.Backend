@@ -21,6 +21,7 @@ namespace HH.Domain.Dto.WeighingHistory
         public DateTimeOffset? TotalWeighingDate { get; set; }
         public DateTimeOffset? VehicleWeighingDate { get; set; }
         public string? Note { get; set; }
-        public List<string>? VehicleImages { get; set; }
+        public List<string>? VehicleImages { get; set; } 
     }
+
 }

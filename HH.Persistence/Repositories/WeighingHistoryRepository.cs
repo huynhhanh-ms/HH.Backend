@@ -14,4 +14,10 @@ public class WeighingHistoryRepository : GenericRepository<WeighingHistory>, IWe
     public WeighingHistoryRepository(DbContext context) : base(context)
     {
     }
+
+    public async Task<IEnumerable<WeighingHistory>> GetsInDateRange(DateTimeOffset startDate, DateTimeOffset endDate)
+    {
+        return await _dbContext.Set<WeighingHistory>().AsNoTracking()
+            .Where(x => x.CreatedAt >= startDate.DateTime && x.CreatedAt <= endDate.DateTime).ToListAsync();
+    }
 }

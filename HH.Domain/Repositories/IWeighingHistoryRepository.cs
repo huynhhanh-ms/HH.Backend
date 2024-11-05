@@ -10,4 +10,5 @@ namespace HH.Domain.Repositories;
 
 public interface IWeighingHistoryRepository : IGenericRepository<WeighingHistory>
 {
+    public Task<IEnumerable<WeighingHistory>> GetsInDateRange(DateTimeOffset startDate, DateTimeOffset endDate);
 }
