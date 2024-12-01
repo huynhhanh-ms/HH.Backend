@@ -39,5 +39,7 @@ public class FuelImportUpdateDto
 
     public string? Status { get; set; }
 
+    public string? Note { get; set; }
+
     public virtual Tank? Tank { get; set; }
 }

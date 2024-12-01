@@ -34,6 +34,9 @@ namespace HH.Domain.Dto
 
         public decimal? TotalSalePrice { get; set; }
 
+        public string? Note { get; set; }
+
+
         public ICollection<FuelImportSessionGetDto>? FuelImportSessions { get; set; }
     }
 }

@@ -22,6 +22,8 @@ public class FuelImportCreateDto
     [Range(1, 100000, ErrorMessage = "Giá nhập phải lớn hơn 0")]
     public decimal ImportPrice { get; set; }
 
-    [Range(1, 100000, ErrorMessage = "Tổng tiền phải lớn hơn 0")]
-    public decimal? Weight { get; set; }
+    //[Range(1, 100000, ErrorMessage = "Tổng tiền phải lớn hơn 0")]
+    public decimal? Weight { get; set; } = 0;
+
+    public string? Note { get; set; }
 }

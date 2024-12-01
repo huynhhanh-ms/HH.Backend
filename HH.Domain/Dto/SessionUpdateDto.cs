@@ -22,6 +22,10 @@ public class SessionUpdateDto
     public DateTime? EndDate { get; set; }
 
     public string? Status { get; set; }
+
+    public string? Note { get; set; }
+
+
     //[InverseProperty("Session")]
     //public virtual ICollection<Expense> Expenses { get; set; } = new List<Expense>();
 

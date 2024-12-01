@@ -19,6 +19,8 @@ public class SessionCreateDto
     [Precision(13, 2)]
     public decimal? CashForChange { get; set; }
 
+    public string? Note { get; set; }
+
     //[InverseProperty("Session")]
     //public virtual ICollection<Expense> Expenses { get; set; } = new List<Expense>();
 

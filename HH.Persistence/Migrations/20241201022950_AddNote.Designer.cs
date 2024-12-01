@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using HH.Persistence.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HH.Persistence.Migrations
 {
     [DbContext(typeof(HhDatabaseContext))]
-    partial class HhDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20241201022950_AddNote")]
+    partial class AddNote
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -103,7 +106,7 @@ namespace HH.Persistence.Migrations
                     b.HasKey("AccountId")
                         .HasName("account_pkey");
 
-                    b.ToTable("account", (string)null);
+                    b.ToTable("account");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.Expense", b =>
@@ -181,7 +184,7 @@ namespace HH.Persistence.Migrations
 
                     b.HasIndex("SessionId");
 
-                    b.ToTable("expense", (string)null);
+                    b.ToTable("expense");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.ExpenseType", b =>
@@ -233,7 +236,7 @@ namespace HH.Persistence.Migrations
                     b.HasKey("Id")
                         .HasName("expense_type_pkey");
 
-                    b.ToTable("expense_type", (string)null);
+                    b.ToTable("expense_type");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.FuelImport", b =>
@@ -325,7 +328,7 @@ namespace HH.Persistence.Migrations
 
                     b.HasIndex("TankId");
 
-                    b.ToTable("fuel_import", (string)null);
+                    b.ToTable("fuel_import");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.FuelImportSession", b =>
@@ -388,7 +391,7 @@ namespace HH.Persistence.Migrations
 
                     b.HasIndex(new[] { "SessionId" }, "idx_fuel_import_session_session_id");
 
-                    b.ToTable("fuel_import_session", (string)null);
+                    b.ToTable("fuel_import_session");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.FuelPrice", b =>
@@ -445,7 +448,7 @@ namespace HH.Persistence.Migrations
 
                     b.HasIndex("FuelTypeId");
 
-                    b.ToTable("fuel_price", (string)null);
+                    b.ToTable("fuel_price");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.FuelType", b =>
@@ -497,7 +500,7 @@ namespace HH.Persistence.Migrations
                     b.HasKey("Id")
                         .HasName("fuel_type_pkey");
 
-                    b.ToTable("fuel_type", (string)null);
+                    b.ToTable("fuel_type");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.Lubricant", b =>
@@ -564,7 +567,7 @@ namespace HH.Persistence.Migrations
                     b.HasKey("Id")
                         .HasName("lubricant_pkey");
 
-                    b.ToTable("lubricant", (string)null);
+                    b.ToTable("lubricant");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.PetrolPump", b =>
@@ -639,7 +642,7 @@ namespace HH.Persistence.Migrations
 
                     b.HasIndex("TankId");
 
-                    b.ToTable("petrol_pump", (string)null);
+                    b.ToTable("petrol_pump");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.Session", b =>
@@ -716,7 +719,7 @@ namespace HH.Persistence.Migrations
                     b.HasKey("Id")
                         .HasName("session_pkey");
 
-                    b.ToTable("session", (string)null);
+                    b.ToTable("session");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.Tank", b =>
@@ -784,7 +787,7 @@ namespace HH.Persistence.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("tank", (string)null);
+                    b.ToTable("tank");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.TriggerLog", b =>
@@ -810,7 +813,7 @@ namespace HH.Persistence.Migrations
                         .HasColumnName("id")
                         .HasDefaultValueSql("nextval('test_trigger_id_seq'::regclass)");
 
-                    b.ToTable("trigger_log", (string)null);
+                    b.ToTable("trigger_log");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.WeighingHistory", b =>
@@ -911,7 +914,7 @@ namespace HH.Persistence.Migrations
                     b.HasKey("Id")
                         .HasName("weighing_history_pkey");
 
-                    b.ToTable("weighing_history", (string)null);
+                    b.ToTable("weighing_history");
                 });
 
             modelBuilder.Entity("HH.Domain.Models.Expense", b =>

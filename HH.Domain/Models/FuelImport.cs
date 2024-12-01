@@ -57,6 +57,9 @@ public partial class FuelImport
     [StringLength(50)]
     public string? Status { get; set; }
 
+    [Column("note")]
+    public string? Note { get; set; }
+
     [Column("total_sale_price")]
     public decimal? TotalSalePrice { get; set; }
 
