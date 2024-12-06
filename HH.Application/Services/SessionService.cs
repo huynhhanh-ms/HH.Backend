@@ -132,7 +132,23 @@ namespace HH.Application.Services
         public async Task<ApiResponse<bool>> Delete(int id)
         {
             await _unitOfWork.Resolve<Session>().DeleteAsync(id);
+
+            var FuelImportSession = await _unitOfWork.Resolve<FuelImportSession>().FindListAsync(x => x.SessionId == id);
+
+            // delete all fuelImportSession relate + remove volume from total
+            foreach (var item in FuelImportSession)
+            {
+                item.IsDeleted = true;
+
+                var fuelImport = await _unitOfWork.Resolve<FuelImport>().FindAsync(item.FuelImportId);
+                fuelImport.VolumeUsed -= item.VolumeUsed;
+                fuelImport.TotalSalePrice -= item.SalePrice;
+                if (fuelImport.VolumeUsed < fuelImport.ImportVolume)
+                    fuelImport.Status = "Processing";
+            }
+
             await _unitOfWork.SaveChangesAsync();
+
             return Success<bool>("Xóa thành công");
         }
 
