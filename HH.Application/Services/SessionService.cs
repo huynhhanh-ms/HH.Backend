@@ -42,12 +42,12 @@ namespace HH.Application.Services
                 foreach (var import in fuelImport.OrderBy(x => x.ImportDate))
                 {
                     if (totalVolumeUsed <= 0) break;
-                    if (import.Status == "Closed")                continue;
+                    if (import.Status == "Closed") continue;
                     if (import.VolumeUsed >= import.ImportVolume) continue;
-                    if (import.TankId != tankId)                  continue;
+                    if (import.TankId != tankId) continue;
 
                     // Calculate volume used for this import
-                    var volumeUsed = Math.Min((import?.ImportVolume ?? 0) - (import?.VolumeUsed ?? 0), 
+                    var volumeUsed = Math.Min((import?.ImportVolume ?? 0) - (import?.VolumeUsed ?? 0),
                                               (totalVolumeUsed ?? 0));
 
                     if (volumeUsed <= 0) break;
@@ -63,11 +63,11 @@ namespace HH.Application.Services
                         SessionId = Session.Id,
                         FuelImportId = import.Id,
                         VolumeUsed = volumeUsed,
-                        SalePrice = volumeUsed * pump.Price, 
+                        SalePrice = volumeUsed * pump.Price,
                     };
                     importDetails.Add(fuelImportSession);
 
-                    totalVolumeUsed -= (int) volumeUsed;
+                    totalVolumeUsed -= (int)volumeUsed;
                 }
                 if (totalVolumeUsed > 0)
                     return Failed<bool>("Không đủ dữ liệu nhập nhiên liệu để xuất");
@@ -100,10 +100,15 @@ namespace HH.Application.Services
                                       .FirstOrDefault(p => p.TankId == pump.TankId && p.Price.HasValue && p.Price != 0)?
                                       .Price ?? 0;
                 if (pump.StartVolume == 0)
-                    pump.StartVolume = lastPump?.OrderBy(p => -p.SessionId)
+                {
+                    var lastPumpValue = lastPump?.OrderBy(p => -p.SessionId)
                                             .Where(p => p.IsDeleted == false)
                                             .FirstOrDefault(p => p.TankId == pump.TankId && p.EndVolume != 0)?
                                             .EndVolume ?? 0;
+                    pump.StartVolume = lastPumpValue;
+                    pump.EndVolume = lastPumpValue;
+                }
+
                 return pump;
             }).ToList();
 

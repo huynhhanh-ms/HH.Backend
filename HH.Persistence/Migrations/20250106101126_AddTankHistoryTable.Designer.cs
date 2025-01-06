@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using HH.Persistence.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HH.Persistence.Migrations
 {
     [DbContext(typeof(HhDatabaseContext))]
-    partial class HhDatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20250106101126_AddTankHistoryTable")]
+    partial class AddTankHistoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -797,10 +800,8 @@ namespace HH.Persistence.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime?>("CreatedAt")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasColumnName("created_at")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnName("created_at");
 
                     b.Property<int?>("CreatedBy")
                         .HasColumnType("integer")
@@ -812,9 +813,7 @@ namespace HH.Persistence.Migrations
                         .HasColumnName("current_volume");
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("boolean")
-                        .HasDefaultValue(false)
                         .HasColumnName("is_deleted");
 
                     b.Property<string>("Name")
@@ -828,17 +827,14 @@ namespace HH.Persistence.Migrations
                         .HasColumnName("tank_id");
 
                     b.Property<DateTime?>("UpdatedAt")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp without time zone")
-                        .HasColumnName("updated_at")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnName("updated_at");
 
                     b.Property<int?>("UpdatedBy")
                         .HasColumnType("integer")
                         .HasColumnName("updated_by");
 
-                    b.HasKey("Id")
-                        .HasName("tank_history_pkey");
+                    b.HasKey("Id");
 
                     b.ToTable("tank_history");
                 });

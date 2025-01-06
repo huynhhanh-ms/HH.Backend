@@ -41,6 +41,7 @@ public partial class HhDatabaseContext : DbContext
     public virtual DbSet<TriggerLog> TriggerLogs { get; set; }
 
     public virtual DbSet<WeighingHistory> WeighingHistories { get; set; }
+    public DbSet<TankHistory> TankHistories { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -48,6 +49,14 @@ public partial class HhDatabaseContext : DbContext
             .HasPostgresEnum("account_status", new[] { "active", "inactive", "suspended" })
             .HasPostgresEnum("user_role", new[] { "admin", "user", "guest", "staff", "manager" })
             .HasPostgresEnum("weighing_status", new[] { "new", "processing", "done" });
+
+        modelBuilder.Entity<TankHistory>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("tank_history_pkey");
+            entity.Property(e => e.CreatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.IsDeleted).HasDefaultValue(false);
+            entity.Property(e => e.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
 
         modelBuilder.Entity<Account>(entity =>
         {
