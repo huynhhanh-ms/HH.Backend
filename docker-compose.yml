@@ -20,3 +20,4 @@ services:
       - ASPNETCORE_Kestrel__Certificates__Default__KeyPath=/https/live/huynhhanh.com-0001/privkey.pem
     volumes:
       - /etc/letsencrypt:/https:ro
+      - /home/HH.Backend/HH.Api/appsettings.json:/app/appsettings.json
