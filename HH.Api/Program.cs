@@ -49,6 +49,13 @@ builder.Services
             }
         };
     });
+//builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//    .AddJwtBearer(options =>
+//    {
+//        options.Authority = "http://localhost:8080/realms/petrol";
+//        //options.Audience = "account";
+//        options.RequireHttpsMetadata = false; // Chỉ dùng khi chạy local
+//    });
 
 
 
@@ -87,8 +94,14 @@ app.UseMiddleware<ExceptionMiddleware>();
 app.UseMiddleware<CurrentAccountMiddleware>();
 
 //app.UseHttpsRedirection(); // redirect http to https when have ssl and configure in launchSettings.json
-app.UseAuthentication(); 
+app.UseAuthentication();
 app.UseAuthorization();
+
+
+app.MapGet("/secure-data", (HttpContext context) =>
+{
+    return Results.Json(new { message = "Welcome!", user = context.User.Identity.Name });
+}).RequireAuthorization();
 
 app.UseCorsPolicy();
 

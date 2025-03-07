@@ -7,11 +7,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HH.Api", "HH.Api\HH.Api.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HH.Domain", "HH.Domain\HH.Domain.csproj", "{5288812A-7AE9-4F43-B675-419E70C5B80B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HH.Application", "HH.Application\HH.Application.csproj", "{31BC4420-3B5D-49BB-9FB3-FA3C0E5238D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HH.Application", "HH.Application\HH.Application.csproj", "{31BC4420-3B5D-49BB-9FB3-FA3C0E5238D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HH.Persistence", "HH.Persistence\HH.Persistence.csproj", "{99770B1E-9AFE-47AD-A2AC-481B3ED669B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HH.Persistence", "HH.Persistence\HH.Persistence.csproj", "{99770B1E-9AFE-47AD-A2AC-481B3ED669B8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HH.Infrastructure", "HH.Infrastructure\HH.Infrastructure.csproj", "{EC53F1A2-5607-4C96-B6C4-1346A911D65D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8860A0EB-4260-4A56-8FB6-76A781F90BF5}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

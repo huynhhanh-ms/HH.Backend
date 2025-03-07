@@ -14,6 +14,7 @@ services:
       - TZ=Asia/Saigon
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:8080;http://+:6789
+      # - ASPNETCORE_URLS=http://+:8080;http://+:6789
         #- ASPNETCORE_Kestrel__Certificates__Default__Password=QWErty789)
         #- ASPNETCORE_Kestrel__Certificates__Default__Path=/https/aspnetapp.pfx
       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/live/huynhhanh.com-0001/fullchain.pem
@@ -21,3 +22,4 @@ services:
     volumes:
       - /etc/letsencrypt:/https:ro
       - /home/HH.Backend/HH.Api/appsettings.json:/app/appsettings.json
+      # - D:/project/_hhfms/HH.Backend/HH.Api/appsettings.json:/app/appsettings.json
